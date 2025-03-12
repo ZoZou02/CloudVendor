@@ -1,0 +1,92 @@
+/* 水平间距 */
+/* 水平间距 */
+.content {
+  padding-bottom: 20rpx;
+}
+.content .btTab {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 250px;
+  background-color: #fff;
+}
+.content .boothImg {
+  display: block;
+  width: 100%;
+}
+.content .list {
+  position: relative;
+  width: 96%;
+  padding-left: 4%;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+.content .list .row {
+  widows: 100%;
+  min-height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1rpx #eee;
+}
+.content .list .row:last-child {
+  border-bottom: none;
+}
+.content .list .row .title {
+  font-size: 36rpx;
+  color: #333;
+}
+.content .list .row .left {
+  margin-left: 20px;
+}
+.content .list .row .right {
+  margin-right: 20px;
+  color: #333;
+  text-align: right;
+}
+.option {
+  display: flex;
+  /* margin-top: 4%; */
+  margin-left: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: #cecece solid 0.5rpx;
+}
+.msg-left {
+  flex: 5;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.msg-right {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: 15rpx;
+  border-bottom: #000000 solid 0.5rpx;
+}
+.IdImg {
+  display: block;
+  margin-left: 10%;
+  margin-bottom: 10px;
+  width: 80%;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  margin-top: 10px;
+  background-color: #4f99ff;
+  border-radius: 30px;
+  width: 80%;
+  color: white;
+  font-size: 1.2em;
+  height: 100%;
+}
+input[required]::after {
+  content: "*";
+  color: red;
+  margin-left: 2px;
+}

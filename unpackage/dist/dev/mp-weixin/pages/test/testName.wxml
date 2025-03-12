@@ -1,0 +1,1 @@
+<view><view wx:if="{{a}}"><view>点击的元素属性数据</view><view>标签名: {{b}}</view><view>类名: {{c}}</view><view>id: {{d}}</view><view>其他属性: {{e}}</view></view><view id="example" class="example-class" bindtap="{{f}}"> 点击我查看属性数据 </view></view>

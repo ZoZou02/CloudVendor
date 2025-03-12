@@ -1,0 +1,1 @@
+<view wx:if="{{a}}" class="content"><view class="btTab"><image class="boothImg" src="{{b}}"></image></view><view class="QrCode"><button class="btn flex-center" bindtap="{{c}}">返回</button></view></view>

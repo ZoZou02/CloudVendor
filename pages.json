@@ -1,0 +1,240 @@
+{
+	"pages": [{
+		"path": "pages/vendor/index/index",
+		"style": {
+			"navigationBarTitleText": "首页",
+			"enablePullDownRefresh" : true
+		}
+	},
+	{
+		"path" : "pages/vendor/register/register",
+		"style" : 
+		{
+			"navigationBarTitleText" : "注册",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/login/login",
+		"style" : 
+		{
+			"navigationBarTitleText" : "登录",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/booth/booth",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊位",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/vendor/vendor",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊主",
+			"enablePullDownRefresh" : true
+		}
+	},
+	{
+		"path" : "pages/test/map",
+		"style" : 
+		{
+			"navigationBarTitleText" : "地图",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/certification/certification",
+		"style" : 
+		{
+			"navigationBarTitleText" : "实名认证",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/editProfile/editProfile",
+		"style" : 
+		{
+			"navigationBarTitleText" : "编辑资料",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/setting/setting",
+		"style" : 
+		{
+			"navigationBarTitleText" : "个人设置",
+			"enablePullDownRefresh" : true
+		}
+	},
+	{
+		"path" : "pages/vendor/editAvatar/editAvatar",
+		"style" : 
+		{
+			"navigationBarTitleText" : "更换头像",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/testCert/testCert",
+		"style" : 
+		{
+			"navigationBarTitleText" : "实名认证",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/admin/overview/overview",
+		"style" : 
+		{
+			"navigationBarTitleText" : "控制台",
+			"enablePullDownRefresh" : false,
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/area/area",
+		"style" : 
+		{
+			"navigationBarTitleText" : "添加摊位区域",
+			"enablePullDownRefresh" : false,
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/street/street",
+		"style" : 
+		{
+			"navigationBarTitleText" : "添加街道区域",
+			"enablePullDownRefresh" : false,
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/admin",
+		"style" : 
+		{
+			"navigationBarTitleText" : "后台管理",
+			"enablePullDownRefresh" : false,
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/test/test",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/map/map",
+		"style" : 
+		{
+			"navigationBarTitleText" : "地图",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/test/testName",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/test/clicktest",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"enablePullDownRefresh" : false
+		}
+	},
+
+	{
+		"path" : "pages/vendor/editBooth/editBooth",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊位信息编辑",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/vendor/addBooth/addBooth",
+		"style" : 
+		{
+			"navigationBarTitleText" : "添加摊位",
+			"enablePullDownRefresh" : false
+		}
+	},
+
+	{
+		"path" : "pages/vendor/QrCode/QrCode",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/admin/vendorlist/vendorlist",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/inspectorlist/inspectorlist",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/boothState/boothState",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle":"custom"
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#4f99ff",
+		"backgroundColor": "#ffffff",
+		"borderStyle": "white",
+		"list": [{
+				"selectedIconPath": "static/tarbarimgs/icons8-home-256on.png",
+				"iconPath": "static/tarbarimgs/icons8-home-256.png",
+				"pagePath": "pages/vendor/index/index",
+				"text": "首页"
+			},
+			{
+				"selectedIconPath": "static/tarbarimgs/icons8-map-96on.png",
+				"iconPath": "static/tarbarimgs/icons8-map-96.png",
+				"pagePath": "pages/vendor/map/map",
+				"text": "地图"
+			},
+			{
+				"selectedIconPath": "static/tarbarimgs/icons8-person-96on.png",
+				"iconPath": "static/tarbarimgs/icons8-person-96.png",
+				"pagePath": "pages/vendor/vendor/vendor",
+				"text": "摊主"
+			}
+		]
+	}
+}

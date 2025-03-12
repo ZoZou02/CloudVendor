@@ -1,0 +1,154 @@
+/* 水平间距 */
+/* 水平间距 */
+.top.data-v-654d5911 {
+  height: 250rpx;
+  position: relative;
+}
+.top .background.data-v-654d5911 {
+  background-color: #5199ff;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  position: absolute;
+  height: 180rpx;
+  width: 100%;
+}
+.icon.data-v-654d5911 {
+  color: #96a1ae;
+  font-size: 40rpx;
+}
+.user-card.data-v-654d5911 {
+  height: 160rpx;
+  padding: 0 15px;
+  width: 90%;
+}
+.user-card .card.data-v-654d5911 {
+  position: relative;
+  bottom: 62px;
+  height: 120px;
+  background-color: white;
+  border-radius: 5%;
+  box-shadow: 0 1px 2px 0 #e4e7ef;
+}
+.user-card .card .top.data-v-654d5911 {
+  height: 30%;
+  position: relative;
+}
+.user-card .card .top .userImage.data-v-654d5911 {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 150rpx;
+  height: 150rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+.user-card .card .top .userImage image.data-v-654d5911 {
+  width: 100%;
+}
+.user-card .card .bottom.data-v-654d5911 {
+  display: flex;
+  height: 70%;
+}
+.user-card .card .bottom .left.data-v-654d5911 {
+  width: 80%;
+  height: 90%;
+  position: relative;
+}
+.user-card .card .bottom .left .user-text.data-v-654d5911 {
+  width: 100%;
+  font-size: 1.6em;
+  padding-left: 80rpx;
+  height: 50%;
+}
+.user-card .card .bottom .left .user-phone.data-v-654d5911 {
+  color: #96a1ae;
+  padding-left: 80rpx;
+  height: 25%;
+  width: 100%;
+  font-size: 0.9em;
+}
+.user-card .card .bottom .right.data-v-654d5911 {
+  width: 20%;
+  height: 50%;
+}
+.list-card.data-v-654d5911 {
+  padding: 0 15px;
+}
+.list-card .card.data-v-654d5911 {
+  border-radius: 5px;
+  position: relative;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 #e4e7ef;
+  border-radius: 5px;
+  padding: 5px 30px;
+}
+.list-card .card .item.data-v-654d5911 {
+  display: flex;
+  height: 120rpx;
+}
+.list-card .card .item .left.data-v-654d5911 {
+  width: 15%;
+}
+.list-card .card .item .left image.data-v-654d5911 {
+  width: 70rpx;
+  height: 70rpx;
+}
+.list-card .card .item .center.data-v-654d5911 {
+  width: 65%;
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+}
+.list-card .card .item .right.data-v-654d5911 {
+  width: 20%;
+  justify-content: flex-end;
+}
+.item-bottom-solid.data-v-654d5911 {
+  border-bottom: 1px solid #d4d6da;
+}
+.quit.data-v-654d5911 {
+  height: 100rpx;
+  margin-top: 50px;
+}
+.quit .btn.data-v-654d5911 {
+  background-color: #4f99ff;
+  border-radius: 30px;
+  width: 80%;
+  color: white;
+  font-size: 1.2em;
+  height: 100%;
+}
+.flex-center.data-v-654d5911 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boxList.data-v-654d5911 {
+  position: relative;
+  margin: auto;
+  bottom: 30%;
+  width: 90%;
+  height: 200px;
+  border-radius: 5%;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 #e4e7ef;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-end;
+}
+.boxList .box.data-v-654d5911 {
+  width: 90px;
+  height: 90px;
+  text-align: center;
+}
+.boxList .box .funcTitle.data-v-654d5911 {
+  color: black;
+  font-size: 0.7em;
+}
+.boxList .box image.data-v-654d5911 {
+  width: 30px;
+  height: 30px;
+}

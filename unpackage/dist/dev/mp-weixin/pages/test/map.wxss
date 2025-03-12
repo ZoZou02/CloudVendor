@@ -1,0 +1,10 @@
+/* 水平间距 */
+/* 水平间距 */
+.ctrl.data-v-8181d006 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+}

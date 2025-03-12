@@ -1,0 +1,1 @@
+<view><view class="imageBox"><view class="userImage"><image src="{{a}}" mode="widthFix"></image></view></view><button bindtap="{{b}}">选择图片</button><button bindtap="{{c}}">上传头像</button></view>

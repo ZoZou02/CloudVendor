@@ -1,0 +1,162 @@
+/* 水平间距 */
+/* 水平间距 */
+.top {
+  height: 250rpx;
+  position: relative;
+}
+.top .background {
+  background-color: #5199ff;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  position: absolute;
+  height: 180rpx;
+  width: 100%;
+}
+.user-card {
+  height: 160rpx;
+  padding: 0 15px;
+  width: 90%;
+}
+.user-card .card {
+  position: relative;
+  bottom: 62px;
+  height: 150px;
+  background-color: white;
+  border-radius: 5%;
+  box-shadow: 0 1px 2px 0 #e4e7ef;
+}
+.user-card .card .top {
+  height: 30%;
+  position: relative;
+}
+.user-card .card .top .userImage {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 150rpx;
+  height: 150rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+.user-card .card .top .userImage image {
+  width: 100%;
+}
+.user-card .card .top .boothIcon {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  width: 150rpx;
+  height: 150rpx;
+  overflow: hidden;
+}
+.user-card .card .bottom {
+  display: flex;
+  height: 70%;
+}
+.user-card .card .bottom .left {
+  width: 80%;
+  height: 90%;
+  position: relative;
+}
+.user-card .card .bottom .left .user-text {
+  width: 100%;
+  font-size: 1.6em;
+  padding-left: 80rpx;
+  height: 50%;
+}
+.user-card .card .bottom .left .user-text image {
+  bottom: 30px;
+  left: 200px;
+  width: 30px;
+}
+.user-card .card .bottom .left .user-phone {
+  color: #96a1ae;
+  padding-left: 80rpx;
+  height: 25%;
+  width: 100%;
+  font-size: 0.9em;
+}
+.user-card .card .bottom .right {
+  width: 20%;
+  height: 50%;
+}
+.other-card {
+  margin-top: 30px;
+  height: 500px;
+  padding: 0 15px;
+  width: 90%;
+}
+.other-card .title {
+  position: relative;
+  top: 0;
+  left: 100px;
+  font-size: 1.2em;
+  height: 20%;
+}
+.other-card .card {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  position: relative;
+  bottom: 62px;
+  height: 100px;
+  background-color: white;
+  border-radius: 5%;
+  box-shadow: 0 1px 2px 0 #e4e7ef;
+}
+.other-card .card .top {
+  height: 30%;
+  position: relative;
+}
+.other-card .card .top .userImage {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 150rpx;
+  height: 150rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+.other-card .card .top .userImage image {
+  width: 100%;
+}
+.other-card .card .top .boothIcon {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  width: 150rpx;
+  height: 150rpx;
+  overflow: hidden;
+}
+.other-card .card .bottom {
+  display: flex;
+  height: 70%;
+}
+.other-card .card .bottom .left {
+  width: 80%;
+  height: 90%;
+  position: relative;
+}
+.other-card .card .bottom .left .user-text {
+  width: 100%;
+  font-size: 1.6em;
+  padding-left: 80rpx;
+  height: 50%;
+}
+.other-card .card .bottom .left .user-text image {
+  bottom: 30px;
+  left: 200px;
+  width: 30px;
+}
+.other-card .card .bottom .left .user-phone {
+  color: #96a1ae;
+  padding-left: 80rpx;
+  height: 25%;
+  width: 100%;
+  font-size: 0.9em;
+}
+.other-card .card .bottom .right {
+  width: 20%;
+  height: 50%;
+}

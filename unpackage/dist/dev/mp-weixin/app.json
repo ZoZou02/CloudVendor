@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/vendor/index/index",
+    "pages/vendor/register/register",
+    "pages/vendor/login/login",
+    "pages/vendor/booth/booth",
+    "pages/vendor/vendor/vendor",
+    "pages/test/map",
+    "pages/vendor/certification/certification",
+    "pages/vendor/editProfile/editProfile",
+    "pages/vendor/setting/setting",
+    "pages/vendor/editAvatar/editAvatar",
+    "pages/vendor/testCert/testCert",
+    "pages/admin/area/area",
+    "pages/test/test",
+    "pages/vendor/map/map",
+    "pages/test/testName",
+    "pages/test/clicktest",
+    "pages/admin/console/console",
+    "pages/vendor/editBooth/editBooth",
+    "pages/vendor/addBooth/addBooth",
+    "pages/admin/street/street",
+    "pages/vendor/QrCode/QrCode"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4f99ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "static/tarbarimgs/icons8-home-256on.png",
+        "iconPath": "static/tarbarimgs/icons8-home-256.png",
+        "pagePath": "pages/vendor/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "static/tarbarimgs/icons8-map-96on.png",
+        "iconPath": "static/tarbarimgs/icons8-map-96.png",
+        "pagePath": "pages/vendor/map/map",
+        "text": "地图"
+      },
+      {
+        "selectedIconPath": "static/tarbarimgs/icons8-person-96on.png",
+        "iconPath": "static/tarbarimgs/icons8-person-96.png",
+        "pagePath": "pages/vendor/vendor/vendor",
+        "text": "摊主"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

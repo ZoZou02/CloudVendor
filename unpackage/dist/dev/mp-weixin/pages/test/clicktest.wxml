@@ -1,0 +1,1 @@
+<view class="data-v-faf54e70"><button class="data-v-faf54e70" type="default" bindtap="{{a}}">按钮</button><tmap-map wx:if="{{b}}" class="map data-v-faf54e70" u-i="faf54e70-0" bind:__l="__l" u-p="{{b}}"></tmap-map><view class="toolControl data-v-faf54e70" bindtap="{{d}}"><view class="toolItem data-v-faf54e70" id="save" catchtap="{{c}}"></view></view></view>

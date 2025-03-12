@@ -1,0 +1,29 @@
+{
+    "pages": {
+        "subPackages": [
+            {
+                "root": "uni_modules/dx-admin-exclusive-avatar",
+                "pages": [
+                    {
+                        "path": "pages/category/category",
+                        "style": {
+                            "navigationBarTitleText": "分类管理"
+                        }
+                    },
+                    {
+                        "path": "pages/familyOrigin/familyOrigin",
+                        "style": {
+                            "navigationBarTitleText": "姓氏起源"
+                        }
+                    },
+                    {
+                        "path": "pages/material/material",
+                        "style": {
+                            "navigationBarTitleText": "素材管理"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

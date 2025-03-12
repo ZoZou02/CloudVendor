@@ -1,0 +1,114 @@
+
+.changeInfo {
+		width: 100%;
+		height: 100%;
+		background: #FFFFFF;
+}
+.nav-box {
+		height: 50px;
+		position: relative;
+		margin: 0 auto;
+		padding-top: 30px;
+}
+.title {
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 18px;
+}
+.icon-nav {
+		position: absolute;
+		top: 30px;
+		left: 10px;
+		color: #FFFFFF;
+}
+.box {
+		width: 100%;
+		height: 150px;
+		margin: 0 auto;
+		border-top: 1px solid #333333;
+		border-bottom: 1px solid #333333;
+}
+.img-box {
+		text-align: center;
+}
+.img {
+		margin-top: 20px;
+		width: 20%;
+		/* height: 70px; */
+		border-radius: 50%;
+}
+.userImage {
+		bottom: 24%;
+		left: 10%;
+		width: 130px;
+		height: 130px;
+		overflow: hidden;
+		border-radius: 50%;
+		border: 2px solid white;
+image {
+			width: 100%;
+}
+}
+.text {
+		margin-top: 13px;
+		color: #000000;
+		font-size: 13px;
+}
+.info-box {
+		padding: 0 10px;
+}
+.text-box {
+		width: 100%;
+		height: 52px;
+		line-height: 52px;
+}
+.left {
+		float: left;
+		font-size: 15px;
+		color: #000000;
+		margin-left: 10px;
+}
+.right {
+		width: 200px;
+		height: 30px;
+		margin-left: 100px;
+		/* margin-top: 10px; */
+		font-size: 15px;
+		margin-right: 10px;
+		color: #000000;
+}
+.rightInput {
+		width: 200px;
+		height: 50px;
+		margin-left: 100px;
+		/* margin-top: 10px; */
+		font-size: 15px;
+		margin-right: 10px;
+		color: #000000;
+}
+.icon-box {
+		float: right;
+		font-size: 15px;
+		color: #cecece;
+		width: 10px;
+}
+.quit {
+		height: 100rpx;
+		margin-top: 50px;
+.btn {
+			background-color: #4f99ff;
+			border-radius: 30px;
+			width: 80%;
+			color: white;
+			font-size: 1.2em;
+			height: 100%;
+}
+}
+.flex-center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+}
+.sexLabel {
+		margin-left: 20px;
+}

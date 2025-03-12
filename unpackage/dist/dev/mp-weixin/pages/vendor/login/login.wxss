@@ -1,0 +1,84 @@
+
+.zai-box {
+		padding: 0 100rpx;
+		position: relative;
+}
+.zai-logo {
+		width: 100%;
+		width: 100%;
+		height: 310rpx;
+}
+.zai-title {
+		position: absolute;
+		top: 0;
+		line-height: 360rpx;
+		font-size: 68rpx;
+		color: #fff;
+		text-align: center;
+		width: 100%;
+		margin-left: -100rpx;
+}
+.zai-form {
+		margin-top: 300rpx;
+}
+.zai-input {
+		background: #e2f5fc;
+		margin-top: 30rpx;
+		border-radius: 100rpx;
+		padding: 20rpx 40rpx;
+		font-size: 36rpx;
+}
+.input-placeholder,
+	.zai-input {
+		color: #94afce;
+}
+.zai-label {
+		padding: 60rpx 0;
+		text-align: center;
+		font-size: 30rpx;
+		color: #a7b6d0;
+}
+.zai-btn {
+		position: relative;
+		background: #ff65a3;
+		color: #fff;
+		border: 0;
+		border-radius: 100rpx;
+		font-size: 36rpx;
+		z-index: 1001;
+}
+.zai-btn:after {
+		border: 0;
+}
+
+	/*按钮点击效果*/
+.zai-btn.button-hover {
+		transform: translate(1rpx, 1rpx);
+}
+.toolControl {
+		position: absolute;
+		top: 500px;
+		left: 220px;
+		right: 0px;
+		margin: auto;
+		width: 50px;
+		z-index: 2000;
+		pointer-events: all;
+}
+.toolItem:hover {
+		border-color: #789cff;
+}
+.toolItem {
+		width: 30px;
+		height: 30px;
+		float: left;
+		margin: 1px;
+		padding: 4px;
+		border-radius: 3px;
+		background-size: 30px 30px;
+		background-position: 4px 4px;
+		background-repeat: no-repeat;
+		box-shadow: 0 1px 2px 0 #e4e7ef;
+		background-color: #ffffff;
+		border: 1px solid #ffffff;
+}

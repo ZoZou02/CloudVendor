@@ -1,0 +1,58 @@
+/* 水平间距 */
+/* 水平间距 */
+page {
+  background-color: #f3f3f3;
+}
+.icon {
+  font-size: 30rpx;
+}
+.content {
+  padding-bottom: 20rpx;
+}
+.content .list {
+  width: 96%;
+  padding-left: 4%;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+.content .list .row {
+  widows: 100%;
+  min-height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1rpx #eee;
+}
+.content .list .row:last-child {
+  border-bottom: none;
+}
+.content .list .row .title {
+  font-size: 32rpx;
+  color: #333;
+}
+.content .list .row .right {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+.content .list .row .right .tis {
+  font-size: 26rpx;
+  margin-right: 5rpx;
+  max-height: 120rpx;
+}
+.content .list .row .right .tis .userImage {
+  bottom: 24%;
+  left: 10%;
+  width: 130rpx;
+  height: 130rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+.content .list .row .right .tis .userImage image {
+  width: 100%;
+}
+.content .list .row .right .icon {
+  width: 40rpx;
+  color: #cecece;
+}

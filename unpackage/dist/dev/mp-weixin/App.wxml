@@ -1,0 +1,1 @@
+<tmap-map wx:if="{{a}}" u-i="60648b4b-0" bind:__l="__l" u-p="{{a}}"></tmap-map>
