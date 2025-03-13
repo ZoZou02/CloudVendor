@@ -97,8 +97,7 @@
 				location.reload()
 			}, 1000)
 		},
-		onLoad() {
-		},
+		onLoad() {},
 		onShow() {
 			this.getUserInfo();
 			//token不为空
@@ -147,10 +146,10 @@
 					success: res => {
 						console.log(res.data);
 						this.userInfo = res.data.data
-						if(this.userInfo.vendorPic==""||this.userInfo.vendorPic==null){
-							this.userInfo.vendorPic="../../../static/avatar/avatar.png"
+						if (this.userInfo.vendorPic == "" || this.userInfo.vendorPic == null) {
+							this.userInfo.vendorPic = "../../../static/avatar/avatar.png"
 						}
-						
+
 						this.token = token
 					},
 					fail: () => {},
@@ -187,9 +186,9 @@
 					url: '/pages/vendor/booth/booth'
 				})
 			},
-			toProfile(){
+			toProfile() {
 				uni.navigateTo({
-					url:'/pages/vendor/editProfile/editProfile'
+					url: '/pages/vendor/editProfile/editProfile'
 				})
 			}
 		}

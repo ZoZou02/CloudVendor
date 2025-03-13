@@ -202,6 +202,49 @@
 			"navigationBarTitleText" : "",
 			"navigationStyle":"custom"
 		}
+	},
+	{
+		"path" : "pages/inspector/inspector/inspector",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/inspector/login/login",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/inspector/register/register",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/inspector/map/map",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/inspector/editProfile/editProfile",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/test/qrCodeScan",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle":"custom"
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

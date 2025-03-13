@@ -200,7 +200,7 @@
 						url: 'http://localhost:8080/admin/overview',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxODMzNTkyfQ.OByvihkMd089xe2FBOip6952TReFXiDvVLAVESZF-qA'
+							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
 						},
 						timeout: 5000
 					})
@@ -370,7 +370,7 @@
 						url: 'http://localhost:8080/admin/showArea',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxODMzNTkyfQ.OByvihkMd089xe2FBOip6952TReFXiDvVLAVESZF-qA'
+							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
 						}
 					})
 
@@ -419,7 +419,7 @@
 						url: 'http://localhost:8080/booth/getLocationList',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxODMzNTkyfQ.OByvihkMd089xe2FBOip6952TReFXiDvVLAVESZF-qA'
+							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
 						}
 					})
 

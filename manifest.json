@@ -61,10 +61,16 @@
     "vueVersion" : "3",
     "h5" : {
         "sdkConfigs" : {
-            "maps" : {}
+            "maps" : {
+                "tencent" : {
+                    "key" : "MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW"
+                }
+            }
         },
         "devServer" : {
-            "port" : 3000
+            "port" : 3000,
+            "https" : false
+
         }
     }
 }

@@ -10,16 +10,16 @@
 		<el-table :data="vendorList" stripe style="width: 100%">
 			<!-- 各列定义保持不变 -->
 			<el-table-column prop="vendorId" label="摊主ID" width="120" />
-			<el-table-column prop="name" label="姓名" width="120" />
+			<el-table-column prop="vendorName" label="姓名" width="120" />
 			<el-table-column label="照片" width="100">
 				<template #default="{row}">
-					<el-avatar :src="row.avatar" />
+					<el-avatar :src="row.vendorPic" />
 				</template>
 			</el-table-column>
-			<el-table-column prop="stallName" label="摊位" />
+			<el-table-column prop="boothName" label="摊位" />
 			<el-table-column label="身份证号" width="180">
 				<template #default="{row}">
-					{{ formatIdCard(row.idCard) }}
+					{{ formatIdCard(row.idNumber) }}
 				</template>
 			</el-table-column>
 			<el-table-column label="手机号" width="150">
@@ -33,19 +33,19 @@
 					{{ formatTime(row.registerTime) }}
 				</template>
 			</el-table-column>
-			<el-table-column prop="lastLogin" label="最后登录" width="180">
+			<el-table-column prop="loginTime" label="最后登录" width="180">
 				<template #default="{row}">
-					{{ formatTime(row.lastLogin) }}
+					{{ formatTime(row.loginTime) }}
 				</template>
 			</el-table-column>
-			<el-table-column prop="gender" label="性别" width="80">
+			<el-table-column prop="sex" label="性别" width="80">
 				<template #default="{row}">
-					{{ row.gender === 1 ? '男' : '女' }}
+					{{ { '1':'男', '2':'女' }[row.sex] || '-' }}
 				</template>
 			</el-table-column>
 			<el-table-column label="操作" width="180" fixed="right">
 				<template #default="{row}">
-					<el-button size="small" @click="viewDetail(row)">详情</el-button>
+					<el-button size="small" @click="showDetail(row)">详情</el-button>
 					<el-button type="danger" size="small" @click="deleteUser(row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -54,6 +54,45 @@
 		<!-- 分页（Element Plus 分页属性保持一致） -->
 		<el-pagination v-model:current-page="pagination.current" :page-size="pagination.size" :total="pagination.total"
 			@current-change="handlePageChange" />
+
+		<!-- 详情弹窗 -->
+		<el-dialog v-model="detailVisible" :title="currentVendor?.vendorName + ' - 详细信息'" width="600px">
+			<el-descriptions :column="2" border>
+				<el-descriptions-item label="摊主ID">
+					{{ currentVendor?.vendorId || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="姓名">
+					{{ currentVendor?.vendorName || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="性别">
+					{{ { '1':'男', '2':'女' }[currentVendor?.sex] || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="身份证号">
+					{{ currentVendor?.idNumber || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="联系电话">
+					{{ currentVendor?.phone || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="摊位名称">
+					{{ currentVendor?.boothName || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="注册时间">
+					{{ formatTime(currentVendor?.registerTime) || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="最后登录">
+					{{ formatTime(currentVendor?.loginTime) || '0' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="摊位状态" :span="2">
+					{{ currentVendor?.boothState || '-' }}
+				</el-descriptions-item>
+				<el-descriptions-item label="住址" :span="2">
+					{{ currentVendor?.address || '-' }}
+				</el-descriptions-item>
+			</el-descriptions>
+			<template #footer>
+				<el-button @click="detailVisible = false">关闭</el-button>
+			</template>
+		</el-dialog>
 	</div>
 </template>
 
@@ -78,6 +117,21 @@
 		total: 0
 	})
 
+	const detailVisible = ref(false)
+	const currentVendor = ref({
+		vendorId: '',
+		vendorName: '',
+		sex: '1',
+		phone: '',
+		vendorPic: '',
+		boothName: '',
+		idNumber: '',
+		address: '',
+		registerTime: '',
+		loginTime: '',
+		boothState: ''
+	})
+
 	// 方法（直接写在setup作用域中）
 	const formatPhone = (phone) => {
 		return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
@@ -88,8 +142,12 @@
 	}
 
 	const formatTime = (timestamp) => {
-		return dayjs(timestamp).format('YYYY-MM-DD HH:mm')
-	}
+		// 如果 timestamp 为空或无效，直接返回 null（触发 || 回退）
+		if (timestamp === null || timestamp === undefined || !dayjs(timestamp).isValid()) {
+			return null;
+		}
+		return dayjs(timestamp).format('YYYY-MM-DD HH:mm');
+	};
 
 	// 模拟数据
 	// 更真实的模拟数据生成
@@ -114,21 +172,51 @@
 		}).list
 	}
 
+	const showDetail = (row) => {
+		currentVendor.value = {
+			...row
+		}
+		detailVisible.value = true
+	}
+
 
 	const loadData = async () => {
 
-		// 模拟 API 延迟
-		await new Promise(resolve => setTimeout(resolve, 500))
+		// // 模拟 API 延迟
+		// await new Promise(resolve => setTimeout(resolve, 500))
 
-		// 使用模拟数据
+		// // 使用模拟数据
 		const mockData = generateAdvancedMock(50)
-		vendorList.value = mockData.slice(
-			(pagination.current - 1) * pagination.size,
-			pagination.current * pagination.size
-		)
-		pagination.total = mockData.length
+		// vendorList.value = mockData.slice(
+		// 	(pagination.current - 1) * pagination.size,
+		// 	pagination.current * pagination.size
+		// )
+		// pagination.total = mockData.length
 
 		console.log('摊主列表', mockData)
+
+		try {
+			uni.request({
+				url: 'http://localhost:8080/vendor/getVendorList',
+				method: 'GET',
+				header: {
+					'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
+				},
+				success(res) {
+					console.log('摊主数据', res.data.data)
+					vendorList.value = res.data.data
+					pagination.total = res.data.data.length
+				}
+			})
+
+
+		} catch (error) {
+			console.error('摊主数据获取失败:', error)
+			uni.showToast({
+				title: '摊主数据获取失败',
+				icon: 'none'
+			})
+		}
 
 	}
 
