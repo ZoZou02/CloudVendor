@@ -19,22 +19,45 @@
 								{{ token ? userInfo.inspectorName : '点击登录' }}
 							</view>
 						</view>
-						<view class="user-phone">用户ID: {{ userInfo.inspectorId }}</view>
-						<view class="user-phone">地区: {{ userInfo.address }}</view>
+						<view class="user-phone">行政执法证号：{{ userInfo.inspectorId }}</view>
+						<view class="user-phone">所属街道：{{ userInfo.address }}</view>
 					</view>
 				</view>
 			</view>
 		</view>
 
 		<view class="boxList">
-			<!-- 功能按钮保持不变 -->
+			<view class="box" @click="ToBooth">
+				<image src="../../../static/myIcon/store.png" mode="aspectFit"></image>
+				<view class="funcTitle">扫码登记</view>
+			</view>
+
+			<view class="box" @click="ToCert">
+				<image src="../../../static/myIcon/cert.png" mode="aspectFit"></image>
+				<view class="funcTitle">实名认证</view>
+			</view>
+			<view class="box" @click="ToSetting">
+				<image src="../../../static/myIcon/setting.png" mode="aspectFit"></image>
+				<view class="funcTitle">设置</view>
+			</view>
+			<view class="box" @click="ToProfile">
+				<image src="../../../static/myIcon/edit.png" mode="aspectFit"></image>
+				<view class="funcTitle">个人资料</view>
+			</view>
+			<view class="box">
+				<image src="../../../static/myIcon/help.png" mode="aspectFit"></image>
+				<view class="funcTitle">帮助</view>
+			</view>
+			<view class="box">
+				<!-- <image src="../../../static/myIcon/cert.png" mode="aspectFit"></image> -->
+			</view>
 		</view>
 
 		<view class="quit flex-center">
 			<view v-if="token" class="btn flex-center" @click="handleLogout">
 				退出登录
 			</view>
-			<view v-else class="btn flex-center" @click="navigateToLogin">
+			<view v-else class="btn flex-center" @click="ToLogin">
 				登录
 			</view>
 		</view>
@@ -81,7 +104,7 @@
 	const fetchUserInfo = async (token : string) => {
 		try {
 			const res = await uni.request({
-				url: 'http://localhost:8080/inspector/getInspectorInfo',
+				url: `${uni.$baseUrl}/inspector/getInspectorInfo`,
 				method: 'GET',
 				header: { 'Authorization': token }
 			}) as UniNamespace.RequestSuccessCallbackResult
@@ -129,16 +152,16 @@
 	// 退出登录处理
 	const handleLogout = () => {
 		clearUserData()
-		navigateToIndex()
+		ToIndex()
 	}
 
 	// 导航方法
-	const navigateToLogin = () => uni.navigateTo({ url: '/pages/inspector/login/login' })
-	const navigateToIndex = () => uni.reLaunch({ url: '/pages/inspector/index/index' })
-	const navigateToCert = () => uni.navigateTo({ url: '/pages/inspector/certification/certification' })
-	const navigateToSetting = () => uni.navigateTo({ url: '/pages/inspector/setting/setting' })
-	const navigateToBooth = () => uni.navigateTo({ url: '/pages/inspector/booth/booth' })
-	const navigateToProfile = () => uni.navigateTo({ url: '/pages/inspector/editProfile/editProfile' })
+	const ToLogin = () => uni.navigateTo({ url: '/pages/inspector/login/login' })
+	const ToIndex = () => uni.reLaunch({ url: '/pages/inspector/index/index' })
+	const ToCert = () => uni.navigateTo({ url: '/pages/inspector/certification/certification' })
+	const ToSetting = () => uni.navigateTo({ url: '/pages/inspector/setting/setting' })
+	const ToBooth = () => uni.navigateTo({ url: '/pages/inspector/booth/booth' })
+	const ToProfile = () => uni.navigateTo({ url: '/pages/inspector/editProfile/editProfile' })
 
 	// 下拉刷新处理
 	const onPullDownRefresh = () => {
@@ -224,8 +247,37 @@
 			}
 		}
 
+
 		.boxList {
-			/* 保持原有样式 */
+			position: relative;
+			margin: auto;
+			bottom: 30%;
+			width: 90%;
+			height: 200px;
+			border-radius: 5%;
+			background-color: #fff;
+			box-shadow: 0 1px 2px 0 #e4e7ef;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-content: flex-end;
+
+			.box {
+				width: 90px;
+				height: 90px;
+				text-align: center;
+
+				.funcTitle {
+					color: black;
+					font-size: 0.7em;
+				}
+
+				image {
+					width: 30px;
+					height: 30px;
+				}
+			}
 		}
 
 		.quit {

@@ -2,24 +2,72 @@
   "hash": "20690a9e",
   "configHash": "24a6e1d5",
   "lockfileHash": "c989068a",
-  "browserHash": "d5bbebef",
+  "browserHash": "47851d66",
   "optimized": {
     "@map-component/vue-tmap": {
       "src": "../../../../../node_modules/@map-component/vue-tmap/dist/index.js",
       "file": "@map-component_vue-tmap.js",
-      "fileHash": "44fa8261",
+      "fileHash": "d4566874",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../../node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "85034825",
+      "fileHash": "71b4d166",
+      "needsInterop": false
+    },
+    "@turf/turf": {
+      "src": "../../../../../node_modules/@turf/turf/dist/es/index.js",
+      "file": "@turf_turf.js",
+      "fileHash": "645d71e1",
+      "needsInterop": false
+    },
+    "echarts": {
+      "src": "../../../../../node_modules/echarts/index.js",
+      "file": "echarts.js",
+      "fileHash": "3c3bccd3",
+      "needsInterop": false
+    },
+    "dayjs": {
+      "src": "../../../../../node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "56a170a7",
+      "needsInterop": true
+    },
+    "mockjs": {
+      "src": "../../../../../node_modules/mockjs/dist/mock.js",
+      "file": "mockjs.js",
+      "fileHash": "b7901892",
+      "needsInterop": true
+    },
+    "html5-qrcode": {
+      "src": "../../../../../node_modules/html5-qrcode/esm/index.js",
+      "file": "html5-qrcode.js",
+      "fileHash": "e8cace88",
+      "needsInterop": false
+    },
+    "vant": {
+      "src": "../../../../../node_modules/vant/es/index.mjs",
+      "file": "vant.js",
+      "fileHash": "539b345b",
+      "needsInterop": false
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../../../node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "fca9e457",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-MNTBHR2J": {
-      "file": "chunk-MNTBHR2J.js"
+    "chunk-YPW4G2US": {
+      "file": "chunk-YPW4G2US.js"
+    },
+    "chunk-GX4P3OZJ": {
+      "file": "chunk-GX4P3OZJ.js"
+    },
+    "chunk-6MT7EBHR": {
+      "file": "chunk-6MT7EBHR.js"
     }
   }
 }

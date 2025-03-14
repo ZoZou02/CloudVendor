@@ -103,7 +103,7 @@
 			//token不为空
 			if (this.token) {
 				uni.request({
-					url: 'http://localhost:8080/vendor/checkTokenStatus',
+					url: `${uni.$baseUrl}/vendor/checkTokenStatus`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -137,7 +137,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8080/vendor/getVendorInfo',
+					url: `${uni.$baseUrl}/vendor/getVendorInfo`,
 					method: 'GET',
 					data: {},
 					header: {

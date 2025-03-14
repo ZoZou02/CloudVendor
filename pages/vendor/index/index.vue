@@ -89,7 +89,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8080/booth/showBooth',
+					url: `${uni.$baseUrl}/booth/showBooth`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -118,7 +118,7 @@
 			},
 			getBoothState() {
 				uni.request({
-					url: 'http://localhost:8080/booth/getBoothState',
+					url: `${uni.$baseUrl}/booth/getBoothState`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -133,7 +133,7 @@
 			},
 			getBoothList(){
 				uni.request({
-					url: 'http://localhost:8080/booth/getBoothList',
+					url: `${uni.$baseUrl}/booth/getBoothList`,
 					method: 'GET',
 					data: {},
 					header: {

@@ -128,7 +128,7 @@
 				console.log("token：" + getToken)
 				token = getToken
 				uni.request({
-					url: 'http://localhost:8080/admin/showArea',
+					url: `${uni.$baseUrl}/admin/showArea`,
 					method: 'GET',
 					header: {
 						'Authorization': token
@@ -162,7 +162,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8080/booth/showBooth',
+					url: `${uni.$baseUrl}/booth/showBooth`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -204,7 +204,7 @@
 			//获取摊位状态
 			function getBoothState() {
 				uni.request({
-					url: 'http://localhost:8080/booth/getBoothState',
+					url: `${uni.$baseUrl}/booth/getBoothState`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -225,7 +225,7 @@
 			//获取摊位经营位置，只有在经营中生效
 			function getBoothLocation() {
 				uni.request({
-					url: 'http://localhost:8080/booth/getBoothLocation',
+					url: `${uni.$baseUrl}/booth/getBoothLocation`,
 					method: 'GET',
 					data: {
 					},
@@ -254,7 +254,7 @@
 			//获取其他摊位
 			function getBoothList() {
 				uni.request({
-					url:'http://localhost:8080/booth/getBoothList',
+					url:`${uni.$baseUrl}/booth/getBoothList`,
 					method:'GET',
 					data: {
 					},
@@ -270,7 +270,7 @@
 			//获取其他摊位位置
 			function getLocationList() {
 				uni.request({
-					url:'http://localhost:8080/booth/getLocationList',
+					url:`${uni.$baseUrl}/booth/getLocationList`,
 					method:'GET',
 					data: {
 					},
@@ -421,7 +421,7 @@
 					}
 
 					uni.request({
-						url: 'http://localhost:8080/booth/operate',
+						url: `${uni.$baseUrl}/booth/operate`,
 						method: 'POST',
 						header: {
 							'content-type': 'application/json',
@@ -447,7 +447,7 @@
 				closed() {
 					console.log("休息")
 					uni.request({
-						url: 'http://localhost:8080/booth/closed',
+						url: `${uni.$baseUrl}/booth/closed`,
 						method: 'GET',
 						header: {
 							'Authorization': token

@@ -60,7 +60,7 @@
 
 		try {
 			const res = await uni.request({
-				url: 'http://localhost:8080/inspector/register',
+				url: `${uni.$baseUrl}/inspector/register`,
 				method: 'POST',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded;charset=utf-8'

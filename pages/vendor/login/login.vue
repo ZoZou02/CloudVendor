@@ -1,246 +1,220 @@
 <template>
-	<view class="zai-box">
-		<image src="../../../static/login.png" mode='aspectFit' class="zai-logo"></image>
-		<view class="zai-title">登录</view>
-		<view class="zai-form">
-			<input class="zai-input" v-model="user.phone" placeholder-class placeholder="请输入手机号" />
-			<input class="zai-input" v-model="user.password" placeholder-class password placeholder="请输入密码" />
-			<view class="zai-label">忘记密码？</view>
+	<div class="login-container">
+		<div class="login-header">
+			<img src="@/static/login.png" class="login-logo" />
+			<h1 class="login-title">登录</h1>
+		</div>
 
-			<button class="zai-btn" @tap="login">立即登录</button>
-			<navigator url="../register/register" hover-class="none" class="zai-label">还没有账号？点此注册</navigator>
-		</view>
-	</view>
+		<el-form ref="loginForm" :model="user" :rules="rules" class="login-form">
+			<el-form-item prop="phone">
+				<el-input v-model="user.phone" placeholder="请输入手机号" size="large" clearable>
+					<template #prefix>
+						<el-icon>
+							<iphone />
+						</el-icon>
+					</template>
+				</el-input>
+			</el-form-item>
+
+			<el-form-item prop="password">
+				<el-input v-model="user.password" placeholder="请输入密码" type="password" size="large" show-password>
+					<template #prefix>
+						<el-icon>
+							<lock />
+						</el-icon>
+					</template>
+				</el-input>
+			</el-form-item>
+
+			<div class="forget-password">
+				<el-link type="info" @click="toForget">忘记密码？</el-link>
+			</div>
+
+			<el-button type="primary" size="large" class="login-btn" @click="handleLogin" :loading="loading">
+				立即登录
+			</el-button>
+
+			<div class="register-link">
+				<el-link type="primary" @click="toRegister">
+					还没有账号？点此注册
+				</el-link>
+			</div>
+		</el-form>
+	</div>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				user: {
-					phone: '',
-					password: ''
-				},
+<script setup>
+	import {
+		ref
+	} from 'vue'
+	import {
+		ElMessage
+	} from 'element-plus'
+	import {
+		Iphone,
+		Lock
+	} from '@element-plus/icons-vue'
+	// import { BASE_URL } from '@/config/config.js'
 
+	const loginForm = ref(null)
+	const loading = ref(false)
+
+	const user = ref({
+		phone: '',
+		password: ''
+	})
+
+	const rules = {
+		phone: [{
+				required: true,
+				message: '手机号不能为空',
+				trigger: 'blur'
+			},
+			{
+				pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+				message: '手机号格式不正确',
+				trigger: 'blur'
 			}
-		},
-		onLoad() {
+		],
+		password: [{
+			required: true,
+			message: '密码不能为空',
+			trigger: 'blur'
+		}]
+	}
 
-		},
-		methods: {
-			login() {
-				var flag=this.verifyData();
-				if(flag){
-					uni.request({
-						url: 'http://localhost:8080/vendor/login',
-						method: 'POST',
-						header: {
-							'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-						},
-						data: {
-							phone: this.user.phone,
-							password: this.user.password,
-						},
-						success: (res) => {
-							console.log(res.data)
-							if (res.data.data.code === 200) {
-								this.getToken();
-								uni.showToast({
-									icon: "none",
-									title: "登录成功！",
-								});
-							} else {
-								uni.showToast({
-									icon: "error",
-									title: res.data.data,
-								});
-							}
-						},
-						fail: () => {
-					
-						},
-						complete: () => {
-					
-						}
-					})
-				}
-			},
-			getToken() {
-				uni.request({
-					url: 'http://localhost:8080/getToken',
-					method: 'POST',
-					header: {
-						'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-					},
-					data: {
-						id: this.user.phone,
-					},
-					success: (res) => {
-						console.log(res.data);
-						if (res.data.code === 200) {
-							uni.setStorageSync("token", res.data.data);
-							this.toIndex();
-						} else {
-							uni.showToast({
-								icon: "error",
-								title: "获取token失败",
-							});
-						}
-					},
-					fail() {
+	const handleLogin = async () => {
+		try {
+			// 手动触发表单验证
+			const valid = await loginForm.value.validate()
+			if (!valid) return
 
-					},
-					complete() {
-
-					}
-				});
-			},
-			toRegister() {
-				uni.navigateTo({
-					url: '/pages/vendor/register/register'
-				});
-			},
-			toBack() {
-				uni.navigateBack({
-					delta: 1,
-				});
-			},
-			toIndex() {
-				uni.reLaunch({
-					url: '/pages/vendor/index/index'
-				})
-			},
-			verifyData(){
-				var flag = true;
-				if (!this.user.phone) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '手机号不能为空'
-					});
-					return false;
-				}
-				
-				var re11=/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-				var res = re11.test(this.user.phone)
-				if(res==false){
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '手机号有误'
-					});
-					return false;
-				}
-				
-				if (!this.user.password) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '密码不能为空'
-					});
-					return false;
-				}
-				return flag;
+			loading.value = true
 			
-				
+
+
+			const res = await uni.request({
+				url: `${uni.$baseUrl}/vendor/login`,
+				method: 'POST',
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data: {
+					phone: user.value.phone,
+					password: user.value.password
+				}
+			})
+
+			if (res.data.data.code === 200) {
+				ElMessage.success('登录成功')
+				await getToken()
+			} else {
+				ElMessage.error(res.data.data || '登录失败')
 			}
+		} catch (error) {
+			ElMessage.error(error.message || '请求失败')
+			
+		} finally {
+			loading.value = false
 		}
 	}
+
+	// 获取Token
+	const getToken = async () => {
+		try {
+			const res = await uni.request({
+				url: `${uni.$baseUrl}/getToken`,
+				header: {
+					'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+				},
+				method: 'POST',
+				data: {
+					id: user.value.phone
+				}
+			})
+
+			console.log(user.value.phone)
+			console.log(res)
+
+			if (res.data.code === 200) {
+				uni.setStorageSync("token", res.data.data)
+				toIndex()
+			} else {
+				ElMessage.error('获取token失败')
+			}
+		} catch (error) {
+			ElMessage.error('token请求失败')
+		}
+	}
+
+	// 页面跳转方法
+	const toRegister = () => uni.navigateTo({
+		url: '/pages/vendor/register/register'
+	})
+	const toForget = () => uni.navigateTo({
+		url: '/pages/forget/forget'
+	})
+	const toIndex = () => uni.reLaunch({
+		url: '/pages/vendor/index/index'
+	})
 </script>
 
-<style>
-	.zai-box {
-		padding: 0 100upx;
-		position: relative;
+<style scoped>
+	.login-container {
+		padding: 20px;
+		/* min-height: 100vh; */
+		background: #f5f7fa;
 	}
 
-	.zai-logo {
-		width: 100%;
-		width: 100%;
-		height: 310upx;
-	}
-
-	.zai-title {
-		position: absolute;
-		top: 0;
-		line-height: 360upx;
-		font-size: 68upx;
-		color: #fff;
+	.login-header {
 		text-align: center;
+		margin-top: 60px;
+	}
+
+	.login-logo {
+		width: 200px;
+		height: 100px;
+	}
+
+	.login-title {
+		margin-top: 20px;
+		color: #409eff;
+		font-size: 24px;
+	}
+
+	.login-form {
+		margin-top: 40px;
+		padding: 0 20px;
+	}
+
+	.forget-password {
+		margin: 10px 0;
+		text-align: right;
+	}
+
+	.login-btn {
 		width: 100%;
-		margin-left: -100upx;
+		margin-top: 20px;
+		font-size: 16px;
 	}
 
-	.zai-form {
-		margin-top: 300upx;
-	}
-
-	.zai-input {
-		background: #e2f5fc;
-		margin-top: 30upx;
-		border-radius: 100upx;
-		padding: 20upx 40upx;
-		font-size: 36upx;
-	}
-
-	.input-placeholder,
-	.zai-input {
-		color: #94afce;
-	}
-
-	.zai-label {
-		padding: 60upx 0;
+	.register-link {
+		margin-top: 30px;
 		text-align: center;
-		font-size: 30upx;
-		color: #a7b6d0;
 	}
 
-	.zai-btn {
-		position: relative;
-		background: #ff65a3;
-		color: #fff;
-		border: 0;
-		border-radius: 100upx;
-		font-size: 36upx;
-		z-index: 1001;
-	}
+	/* 移动端适配 */
+	@media (max-width: 768px) {
+		.login-form {
+			padding: 0 10px;
+		}
 
-	.zai-btn:after {
-		border: 0;
-	}
+		.login-title {
+			font-size: 20px;
+		}
 
-	/*按钮点击效果*/
-	.zai-btn.button-hover {
-		transform: translate(1upx, 1upx);
-	}
-
-	.toolControl {
-		position: absolute;
-		top: 500px;
-		left: 220px;
-		right: 0px;
-		margin: auto;
-		width: 50px;
-		z-index: 2000;
-		pointer-events: all;
-	}
-
-	.toolItem:hover {
-		border-color: #789cff;
-	}
-
-	.toolItem {
-		width: 30px;
-		height: 30px;
-		float: left;
-		margin: 1px;
-		padding: 4px;
-		border-radius: 3px;
-		background-size: 30px 30px;
-		background-position: 4px 4px;
-		background-repeat: no-repeat;
-		box-shadow: 0 1px 2px 0 #e4e7ef;
-		background-color: #ffffff;
-		border: 1px solid #ffffff;
+		.el-form-item {
+			margin-bottom: 20px;
+		}
 	}
 </style>

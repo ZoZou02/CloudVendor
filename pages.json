@@ -207,43 +207,57 @@
 		"path" : "pages/inspector/inspector/inspector",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "城管"
 		}
 	},
 	{
 		"path" : "pages/inspector/login/login",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "城管登录"
 		}
 	},
 	{
 		"path" : "pages/inspector/register/register",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "城管注册"
 		}
 	},
 	{
 		"path" : "pages/inspector/map/map",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "摊位情况"
 		}
 	},
 	{
 		"path" : "pages/inspector/editProfile/editProfile",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "编辑资料"
 		}
 	},
 	{
 		"path" : "pages/test/qrCodeScan",
 		"style" : 
 		{
-			"navigationBarTitleText" : "",
+			"navigationBarTitleText" : "扫码",
 			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/inspector/scanQrCode/scanQrCode",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
+		}
+	},
+	{
+		"path" : "pages/inspector/vendorDetail/vendorDetail",
+		"style" : 
+		{
+			"navigationBarTitleText" : ""
 		}
 	}],
 	"globalStyle": {

@@ -1,190 +1,192 @@
 <template>
-	<view class="zai-box">
-		<image src="../../../static/register.png" mode='aspectFit' class="zai-logo"></image>
-		<view class="zai-title">注册</view>
-		<view class="zai-form">
-			<input class="zai-input" v-model="phone" placeholder-class placeholder="请输入手机号" />
-			<input class="zai-input" v-model="password" placeholder-class password placeholder="请输入密码" />
-			<input class="zai-input" v-model="repeatpassword" placeholder-class password placeholder="请再输入一次密码" />
-			<!-- <button class="zai-btn">立即注册</button> -->
-			<button class="zai-btn" type="primary" @click="register">立即注册</button>
-			<navigator url="../login/login" open-type='navigate' hover-class="none" class="zai-label">已有账号，点此去登录
-			</navigator>
-		</view>
-	</view>
+	<div class="register-container">
+		<div class="register-header">
+			<img src="@/static/register.png" class="register-logo" />
+			<h1 class="register-title">注册</h1>
+		</div>
+
+		<el-form ref="registerForm" :model="user" :rules="rules" class="register-form">
+			<el-form-item prop="phone">
+				<el-input v-model="user.phone" placeholder="请输入手机号" size="large" clearable>
+					<template #prefix>
+						<el-icon>
+							<iphone />
+						</el-icon>
+					</template>
+				</el-input>
+			</el-form-item>
+
+			<el-form-item prop="password">
+				<el-input v-model="user.password" placeholder="请输入密码" type="password" size="large" show-password>
+					<template #prefix>
+						<el-icon>
+							<lock />
+						</el-icon>
+					</template>
+				</el-input>
+			</el-form-item>
+
+			<el-form-item prop="repeatPassword">
+				<el-input v-model="user.repeatPassword" placeholder="请再次输入密码" type="password" size="large" show-password>
+					<template #prefix>
+						<el-icon>
+							<lock />
+						</el-icon>
+					</template>
+				</el-input>
+			</el-form-item>
+
+			<el-button type="primary" size="large" class="register-btn" @click="handleRegister" :loading="loading">
+				立即注册
+			</el-button>
+
+			<div class="login-link">
+				<el-link type="primary" @click="toLogin">
+					已有账号？点此登录
+				</el-link>
+			</div>
+		</el-form>
+	</div>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				phone: '',
-				password: '',
-				repeatpassword: ''
+<script setup>
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Iphone, Lock } from '@element-plus/icons-vue'
+
+const registerForm = ref(null)
+const loading = ref(false)
+
+const user = ref({
+	phone: '',
+	password: '',
+	repeatPassword: ''
+})
+
+const rules = {
+	phone: [{
+		required: true,
+		message: '手机号不能为空',
+		trigger: 'blur'
+	},
+	{
+		pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+		message: '手机号格式不正确',
+		trigger: 'blur'
+	}],
+	password: [{
+		required: true,
+		message: '密码不能为空',
+		trigger: 'blur'
+	}],
+	repeatPassword: [{
+		required: true,
+		message: '请再次输入密码',
+		trigger: 'blur'
+	},
+	{
+		validator: (rule, value, callback) => {
+			if (value !== user.value.password) {
+				callback(new Error('两次输入的密码不一致'))
+			} else {
+				callback()
 			}
 		},
-		methods: {
-			//返回上级页面
-			toBack() {
-				uni.navigateBack({
-					delta: 1,
-				});
-			},
-			register() {
-				var flag=this.verifyData();
-				if(flag){
-					uni.request({
-						url: 'http://localhost:8080/vendor/register',
-						method: 'POST',
-						header: {
-							'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-						},
-						data: {
-							phone: this.phone,
-							password: this.password,
-						},
-						success: (res) => {
-							uni.showToast({
-								icon: "none",
-								title: res.data.data
-							})
-							if (res.data.data === "注册成功") {
-								setTimeout(() => {
-									uni.navigateTo({
-										url: '/pages/vendor/login/login'
-									})
-								}, 1000);
-							}
-						},
-						fail: () => {},
-						complete: () => {}
-					});
-				}
-			},
-			toLogin() {
-				uni.navigateTo({
-					url: '/pages/vendor/login/login'
-				})
-			},
-			verifyData() {
-				var flag = true;
-				if (!this.phone) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '手机号不能为空'
-					});
-					return false;
-				}
+		trigger: 'blur'
+	}]
+}
 
-				var re11 = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-				var res = re11.test(this.phone)
-				if (res == false) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '手机号有误'
-					});
-					return false;
-				}
-				
-				if (!this.password) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '密码不能为空'
-					});
-					return false;
-				}
-				
-				if (!this.repeatpassword) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '请再输入一次密码'
-					});
-					return false;
-				}
-				
-				if (this.password != this.repeatpassword) {
-					flag = false;
-					uni.showToast({
-						icon: 'none',
-						title: '两次密码不一致'
-					});
-					return false;
-				}
-				
-				return flag;
+const handleRegister = async () => {
+	try {
+		// 手动触发表单验证
+		const valid = await registerForm.value.validate()
+		if (!valid) return
 
+		loading.value = true
 
+		const res = await uni.request({
+			url: `${uni.$baseUrl}/vendor/register`,
+			method: 'POST',
+			header: {
+				'content-type': 'application/x-www-form-urlencoded'
+			},
+			data: {
+				phone: user.value.phone,
+				password: user.value.password
 			}
+		})
+
+		if (res.data.data === "注册成功") {
+			ElMessage.success('注册成功')
+			setTimeout(() => {
+				toLogin()
+			}, 1000)
+		} else {
+			ElMessage.error(res.data.data || '注册失败')
 		}
+	} catch (error) {
+		ElMessage.error(error.message || '请求失败')
+	} finally {
+		loading.value = false
 	}
+}
+
+// 页面跳转方法
+const toLogin = () => uni.navigateTo({
+	url: '/pages/vendor/login/login'
+})
 </script>
 
-<style>
-	.zai-box {
-		padding: 0 100upx;
-		position: relative;
+<style scoped>
+.register-container {
+	padding: 20px;
+	background: #f5f7fa;
+}
+
+.register-header {
+	text-align: center;
+	margin-top: 60px;
+}
+
+.register-logo {
+	width: 200px;
+	height: 100px;
+}
+
+.register-title {
+	margin-top: 20px;
+	color: #409eff;
+	font-size: 24px;
+}
+
+.register-form {
+	margin-top: 40px;
+	padding: 0 20px;
+}
+
+.register-btn {
+	width: 100%;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+.login-link {
+	margin-top: 30px;
+	text-align: center;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+	.register-form {
+		padding: 0 10px;
 	}
 
-	.zai-logo {
-		width: 100%;
-		width: 100%;
-		height: 310upx;
+	.register-title {
+		font-size: 20px;
 	}
 
-	.zai-title {
-		position: absolute;
-		top: 0;
-		line-height: 360upx;
-		font-size: 68upx;
-		color: #fff;
-		text-align: center;
-		width: 100%;
-		margin-left: -100upx;
+	.el-form-item {
+		margin-bottom: 20px;
 	}
-
-	.zai-form {
-		margin-top: 300upx;
-	}
-
-	.zai-input {
-		background: #e2f5fc;
-		margin-top: 30upx;
-		border-radius: 100upx;
-		padding: 20upx 40upx;
-		font-size: 36upx;
-	}
-
-	.input-placeholder,
-	.zai-input {
-		color: #94afce;
-	}
-
-	.zai-label {
-		padding: 60upx 0;
-		text-align: center;
-		font-size: 30upx;
-		color: #a7b6d0;
-	}
-
-	.zai-btn {
-		background: #ff65a3;
-		color: #fff;
-		border: 0;
-		border-radius: 100upx;
-		font-size: 36upx;
-		margin-top: 60upx;
-	}
-
-	.zai-btn:after {
-		border: 0;
-	}
-
-	/*按钮点击效果*/
-	.zai-btn.button-hover {
-		transform: translate(1upx, 1upx);
-	}
+}
 </style>
