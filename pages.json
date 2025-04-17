@@ -176,7 +176,7 @@
 		"path" : "pages/vendor/QrCode/QrCode",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "摊位码"
 		}
 	},
 	{
@@ -228,7 +228,9 @@
 		"path" : "pages/inspector/map/map",
 		"style" : 
 		{
-			"navigationBarTitleText" : "摊位情况"
+			"navigationBarTitleText" : "摊位地图",
+			"enablePullDownRefresh" : false
+
 		}
 	},
 	{
@@ -250,16 +252,120 @@
 		"path" : "pages/inspector/scanQrCode/scanQrCode",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "扫码"
 		}
 	},
 	{
 		"path" : "pages/inspector/vendorDetail/vendorDetail",
 		"style" : 
 		{
-			"navigationBarTitleText" : ""
+			"navigationBarTitleText" : "摊主详情"
 		}
-	}],
+	},
+	{
+		"path" : "pages/inspector/index/index",
+		"style" : 
+		{
+			"navigationBarTitleText" : "首页"
+		}
+	},
+	{
+		"path" : "pages/admin/applyList/applyList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "申请列表"
+		}
+	},
+	{
+		"path" : "pages/admin/fineList/fineList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "处罚列表"
+		}
+	},
+	{
+		"path" : "pages/vendor/message/message",
+		"style" : 
+		{
+			"navigationBarTitleText" : "通知"
+		}
+	},
+	{
+		"path" : "pages/inspector/violation/violation",
+		"style" : 
+		{
+			"navigationBarTitleText" : "违规登记"
+		}
+	},
+	{
+		"path" : "pages/inspector/boothDetail/boothDetail",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊位详情"
+		}
+	},
+	{
+		"path" : "pages/inspector/message/message",
+		"style" : 
+		{
+			"navigationBarTitleText" : "通知"
+		}
+	},
+	{
+		"path" : "pages/admin/login/login",
+		"style" : 
+		{
+			"navigationBarTitleText" : "管理员登录",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/admin/adminManage/adminManage",
+		"style" : 
+		{
+			"navigationBarTitleText" : "管理员管理",
+			"navigationStyle":"custom"
+		}
+	},
+	{
+		"path" : "pages/admin/boothDetail/boothDetail",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊位详情",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/admin/vendorDetail/vendorDetail",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊主详情",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/admin/inspectorDetail/inspectorDetail",
+		"style" : 
+		{
+			"navigationBarTitleText" : "城管详情",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/admin/violationList/violationList",
+		"style" : 
+		{
+			"navigationBarTitleText" : "违规记录"
+		}
+	},
+	{
+		"path" : "pages/vendor/boothViolation/boothViolation",
+		"style" : 
+		{
+			"navigationBarTitleText" : "摊位违规记录"
+		}
+	}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

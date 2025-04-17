@@ -61,6 +61,7 @@
 	export default {
 		data() {
 			return {
+				token: uni.getStorageSync('admin_token'),
 				charts: [],
 				currentTime: '',
 				timer: null,
@@ -200,7 +201,7 @@
 						url: 'http://localhost:8080/admin/overview',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
+							'Authorization': this.token,
 						},
 						timeout: 5000
 					})
@@ -370,7 +371,7 @@
 						url: 'http://localhost:8080/admin/showArea',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
+							'Authorization': this.token
 						}
 					})
 
@@ -419,7 +420,7 @@
 						url: 'http://localhost:8080/booth/getLocationList',
 						method: 'GET',
 						header: {
-							'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
+							'Authorization': this.token
 						}
 					})
 

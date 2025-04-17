@@ -4,6 +4,10 @@
 		<div class="search-bar">
 			<el-input v-model="searchKey" placeholder="请输入姓名或手机号" style="width: 300px" clearable />
 			<el-button type="primary" @click="loadData">搜索</el-button>
+			<el-button type="primary" @click="refreshData">
+				<el-icon><Refresh /></el-icon>
+				刷新
+			</el-button>
 		</div>
 
 		<!-- 表格（Element Plus 的插槽语法保持不变） -->
@@ -107,6 +111,7 @@
 		ElMessageBox
 	} from 'element-plus'
 	import dayjs from 'dayjs'
+	import { Refresh } from '@element-plus/icons-vue'
 
 	// 响应式数据（使用组合式API风格）
 	const searchKey = ref('')
@@ -197,10 +202,10 @@
 
 		try {
 			uni.request({
-				url: 'http://localhost:8080/vendor/getVendorList',
+				url: `${uni.$baseUrl}/vendor/getVendorList`,
 				method: 'GET',
 				header: {
-					'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II'
+					'Authorization': uni.getStorageSync('admin_token')
 				},
 				success(res) {
 					console.log('摊主数据', res.data.data)
@@ -241,6 +246,11 @@
 				ElMessage.error('删除失败')
 			}
 		}
+	}
+
+	const refreshData = () => {
+		searchKey.value = '' // 清空搜索关键词
+		loadData() // 重新加载数据
 	}
 
 	// 生命周期钩子

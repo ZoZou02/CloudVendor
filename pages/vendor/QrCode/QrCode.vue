@@ -1,30 +1,72 @@
 <template>
-	<view class="content" v-if="hasBooth">
-		<view class="btTab">
-			<image class="boothImg" :src="QrPic"></image>
+	<view class="page">
+		<!-- 顶部背景 -->
+		<view class="top">
+			<view class="background"></view>
 		</view>
-
-		<view class="QrCode">
-			<button class="btn flex-center" @click="toBack">返回</button>
+		
+		<!-- 摊位码卡片 -->
+		<view class="qrcode-card" v-if="hasBooth">
+			<view class="card" ref="qrcodeCard" id="qrcodeCard">
+				<!-- 标题 -->
+				<view class="card-header">
+					<view class="header-line"></view>
+					<view class="header-text">摊位码</view>
+					<view class="header-line"></view>
+				</view>
+				
+				<!-- 二维码展示 -->
+				<view class="qrcode-section">
+					<image class="qrcode-image" :src="QrPic" mode="aspectFill"></image>
+					<view class="booth-id">
+						<view class="booth-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+								<path fill="#5199ff" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+							</svg>
+						</view>
+						<text>摊位ID：{{ boothInfo.boothId }}</text>
+					</view>
+				</view>
+				
+				<!-- 说明文本 -->
+				<view class="qrcode-info">
+					<view class="info-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+							<path fill="#5199ff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+						</svg>
+					</view>
+					<text>出示二维码可快速核验摊位身份</text>
+				</view>
+				
+				<!-- 底部按钮 -->
+				<view class="button-section">
+					<button class="action-button" @click="toBack">返回</button>
+					<button class="action-button save-button" @click="saveQrCode">保存</button>
+				</view>
+			</view>
 		</view>
+		
+		<!-- 隐藏的画布，用于绘制并保存二维码卡片 -->
+		<canvas canvas-id="qrcodeCanvas" class="hidden-canvas"></canvas>
+		
+		<!-- H5平台使用的下载链接 -->
+		<a ref="downloadLink" class="hidden-link"></a>
 	</view>
-
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
+				QrPic:"../../../static/qrCode/GD240520155690.png",
 				boothPic: "../../../static/booth/booth.jpg",
 				boothBackGround: "../../../static/booth/boothBG.jpg",
 				boothInfo: {},
 				token: "",
 				hasBooth: false,
+				canvasWidth: 0,
+				canvasHeight: 0,
 			}
-		},
-		mounted() {
-
-
 		},
 		onShow() {
 			this.getBoothInfo()
@@ -45,7 +87,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8080/booth/showBooth',
+					url: `${uni.$baseUrl}/booth/showBooth`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -71,15 +113,9 @@
 							this.hasBooth = false
 						}
 					},
-					fail: () => {
-
-					},
+					fail: () => {},
 					complete: () => {}
 				});
-			},
-			getQrCode() {
-
-
 			},
 			toEditBooth() {
 				uni.navigateTo({
@@ -97,210 +133,320 @@
 					}
 				})
 			},
+			toBack(){
+				uni.navigateBack()
+			},
+			// 保存二维码
+			saveQrCode() {
+				uni.showLoading({
+					title: '准备保存'
+				});
+				
+				// 获取卡片的尺寸信息
+				const that = this;
+				uni.createSelectorQuery()
+					.select('#qrcodeCard')
+					.boundingClientRect(data => {
+						that.canvasWidth = data.width;
+						that.canvasHeight = data.height;
+						that.drawQrCodeCard();
+					})
+					.exec();
+			},
+			// 绘制二维码卡片到画布上
+			drawQrCodeCard() {
+				const ctx = uni.createCanvasContext('qrcodeCanvas', this);
+				
+				// 设置画布大小
+				ctx.width = this.canvasWidth;
+				ctx.height = this.canvasHeight;
+				
+				// 外层背景 - 蓝色
+				ctx.fillStyle = '#5199ff';
+				ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+				
+				// 内层背景 - 白色
+				const padding = 20; // 边框宽度
+				ctx.fillStyle = '#ffffff';
+				ctx.fillRect(padding, padding, this.canvasWidth - padding * 2, this.canvasHeight - padding * 2);
+				
+				// 绘制标题
+				ctx.setTextAlign('center');
+				ctx.setFontSize(18);
+				ctx.setFillStyle('#333333');
+				ctx.fillText('摊位码', this.canvasWidth / 2, 40);
+				
+				// 绘制二维码
+				ctx.drawImage(this.QrPic, (this.canvasWidth - 225) / 2, 60, 225, 225);
+				
+				// 绘制摊位ID
+				ctx.setTextAlign('center');
+				ctx.setFontSize(18);
+				ctx.setFillStyle('#333333');
+				ctx.fillText(`${this.boothInfo.boothId || ''}`, this.canvasWidth / 2, 310);
+				
+				// 绘制说明文本
+				ctx.setFillStyle('#f8f9fa');
+				ctx.fillRect(30, 330, this.canvasWidth - 60, 50);
+				ctx.setTextAlign('center');
+				ctx.setFontSize(13);
+				ctx.setFillStyle('#666666');
+				ctx.fillText('出示二维码可快速核验摊位身份', this.canvasWidth / 2, 360);
+				
+				// 完成绘制并保存
+				ctx.draw(false, () => {
+					setTimeout(() => {
+						uni.canvasToTempFilePath({
+							canvasId: 'qrcodeCanvas',
+							success: (res) => {
+								uni.hideLoading();
+								// 根据平台选择保存方式
+								// #ifdef APP-PLUS || MP-WEIXIN || MP-ALIPAY
+								this.saveToAlbum(res.tempFilePath);
+								// #endif
+								
+								// #ifdef H5
+								this.saveForWeb(res.tempFilePath);
+								// #endif
+							},
+							fail: (err) => {
+								uni.hideLoading();
+								console.error('画布转图片失败', err);
+								uni.showToast({
+									title: '生成图片失败',
+									icon: 'none'
+								});
+							}
+						}, this);
+					}, 300);
+				});
+			},
+			// APP和小程序保存到相册
+			saveToAlbum(filePath) {
+				// 微信小程序先检查权限
+				// #ifdef MP-WEIXIN
+				wx.getSetting({
+					success: (res) => {
+						if (!res.authSetting['scope.writePhotosAlbum']) {
+							wx.authorize({
+								scope: 'scope.writePhotosAlbum',
+								success: () => this.doSaveToAlbum(filePath),
+								fail: () => {
+									uni.showModal({
+										title: '提示',
+										content: '需要授权保存到相册',
+										success: (result) => {
+											if (result.confirm) {
+												uni.openSetting();
+											}
+										}
+									});
+								}
+							});
+						} else {
+							this.doSaveToAlbum(filePath);
+						}
+					}
+				});
+				// #endif
+				
+				// #ifdef APP-PLUS || MP-ALIPAY
+				this.doSaveToAlbum(filePath);
+				// #endif
+			},
+			
+			// 真正执行保存到相册的操作
+			doSaveToAlbum(filePath) {
+				uni.saveImageToPhotosAlbum({
+					filePath: filePath,
+					success: () => {
+						uni.showToast({
+							title: '保存成功',
+							icon: 'success'
+						});
+					},
+					fail: (err) => {
+						console.error('保存失败', err);
+						uni.showToast({
+							title: '保存失败',
+							icon: 'none'
+						});
+					}
+				});
+			},
+			
+			// H5平台通过下载实现
+			saveForWeb(base64Path) {
+				// 创建下载链接
+				const fileName = `摊位码_${this.boothInfo.boothId || '未知'}_${new Date().getTime()}.png`;
+				
+				// 在H5端，base64已经是图片数据了
+				try {
+					// 如果是base64格式，需要准备下载链接
+					if (base64Path.indexOf('data:image') !== -1) {
+						// 创建隐藏的a标签并模拟点击下载
+						const link = this.$refs.downloadLink;
+						link.href = base64Path;
+						link.download = fileName;
+						link.click();
+						
+						uni.showToast({
+							title: '图片即将下载',
+							icon: 'success'
+						});
+					} else {
+						// 如果不是base64，可能是blob URL或其他格式
+						// 此处省略其他格式的处理...
+						uni.showToast({
+							title: '请长按图片保存',
+							icon: 'none'
+						});
+					}
+				} catch (e) {
+					console.error('H5保存失败', e);
+					uni.showToast({
+						title: '保存失败，请截图保存',
+						icon: 'none'
+					});
+				}
+			}
 		}
 	}
 </script>
 
-<style lang="scss">
-	.content {
-		// background-color: #fff;
-		padding-bottom: 20upx;
-
-		.btTab {
-			position: relative;
-			z-index: 1;
+<style lang="scss" scoped>
+	.page {
+		min-height: 100vh;
+		background-color: #f7f7f7;
+	}
+	
+	.top {
+		height: 180rpx;
+		position: relative;
+		
+		.background {
+			background-color: #5199ff;
+			border-bottom-left-radius: 22px;
+			border-bottom-right-radius: 22px;
+			position: absolute;
+			height: 100rpx;
 			width: 100%;
-			height: 250px;
-			background-color: #fff;
-
-			.boothImg {
-				display: block;
-				width: 100%;
-				// height: auto;
-			}
-		}
-
-
-		.boothBG {
-			position: relative;
-			z-index: 1;
-			width: 100%;
-			display: block;
-		}
-
-
-
-		.list {
-			position: relative;
-			width: 96%;
-			padding-left: 4%;
-			background-color: #fff;
-			margin-bottom: 20upx;
-
-			.row {
-				widows: 100%;
-				min-height: 90upx;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				border-bottom: solid 1upx #eee;
-
-				&:last-child {
-					border-bottom: none;
-				}
-
-				.title {
-					font-size: 36upx;
-					color: #333;
-				}
-
-				.left {
-
-					margin-left: 20px;
-
-				}
-
-				.right {
-					margin-right: 20px;
-					color: #999;
-
-
-				}
-
-			}
 		}
 	}
-
-	.option {
-		display: flex;
-		/* margin-top: 4%; */
-		margin-left: 30upx;
-		padding-bottom: 30upx;
-		border-bottom: #cecece solid 0.5upx;
-	}
-
-	.msg-left {
-		flex: 5;
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-	}
-
-	.msg-right {
-		flex: 2;
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		margin-right: 15upx;
-		border-bottom: #000000 solid 0.5upx;
-	}
-
-	.IdImg {
-		display: block;
-		margin-left: 10%;
-		margin-bottom: 10px;
-		width: 80%;
-	}
-
-	.flex-center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.btn {
-		margin-top: 10px;
-		background-color: #4f99ff;
-		border-radius: 30px;
-		width: 60%;
-		color: white;
-		font-size: 1.2em;
-		height: 100%;
-		box-shadow: 0 1px 2px 0 #3263a3;
-		border: 1px solid #4f99ff;
-	}
-
-	.user-card {
-		height: 170rpx;
-		padding: 0 15px;
-
-
+	
+	.qrcode-card {
+		padding: 0 30rpx;
+		
 		.card {
 			position: relative;
-			bottom: 100px;
-			height: 300rpx;
-			background-color: white;
-			border-radius: 5px;
-			z-index: 10;
-			box-shadow: 0 1px 2px 0 #e4e7ef;
+			bottom: 62px;
 			background-color: #ffffff;
-			border: 1px solid #ffffff;
-
-			.title {
-				font-size: 48upx;
-				font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
-				font-weight: bold;
-				color: #333;
-				text-align: center;
-			}
-
-			.text {
-				font-size: 28upx;
-				font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
-				color: #777;
-				text-align: center;
-			}
-
-			.top {
-				height: 30%;
-				position: relative;
-
-				.userImage {
-					position: absolute;
-					bottom: 24%;
-					left: 10%;
-					width: 150rpx;
-					height: 150rpx;
-					overflow: hidden;
-					border-radius: 50%;
-					border: 2px solid white;
-
-					image {
-						width: 100%;
-					}
-				}
-			}
-
-			.bottom {
+			border-radius: 15px;
+			box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+			padding: 40rpx 30rpx;
+			
+			.card-header {
 				display: flex;
-				height: 70%;
-
-				.left {
-					width: 80%;
-					height: 100%;
-					position: relative;
-
-					.user-text {
-						width: 100%;
-						font-size: 1.6em;
-						padding-left: 80rpx;
-						height: 50%;
-					}
-
-					.user-phone {
-						color: #96a1ae;
-						padding-left: 80rpx;
-						height: 50%;
-						width: 100%;
-						font-size: 0.9em;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 40rpx;
+				
+				.header-line {
+					flex: 1;
+					height: 2rpx;
+					background-color: #eeeeee;
+				}
+				
+				.header-text {
+					font-size: 32rpx;
+					color: #333;
+					padding: 0 20rpx;
+					font-weight: 500;
+				}
+			}
+			
+			.qrcode-section {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 20rpx 0 40rpx;
+				
+				.qrcode-image {
+					width: 450rpx;
+					height: 450rpx;
+					border: 1px solid #eee;
+					border-radius: 12rpx;
+					box-shadow: 0 2rpx 15rpx rgba(0, 0, 0, 0.08);
+				}
+				
+				.booth-id {
+					margin-top: 30rpx;
+					font-size: 32rpx;
+					color: #333;
+					font-weight: bold;
+					display: flex;
+					align-items: center;
+					
+					.booth-icon {
+						margin-right: 10rpx;
+						display: flex;
+						align-items: center;
 					}
 				}
-
-				.right {
-					width: 20%;
-					height: 50%;
+			}
+			
+			.qrcode-info {
+				background-color: #f8f9fa;
+				padding: 20rpx;
+				border-radius: 10rpx;
+				display: flex;
+				align-items: center;
+				margin: 20rpx 0;
+				
+				.info-icon {
+					margin-right: 10rpx;
+					display: flex;
+					align-items: center;
+				}
+				
+				text {
+					font-size: 26rpx;
+					color: #666;
+				}
+			}
+			
+			.button-section {
+				margin-top: 40rpx;
+				display: flex;
+				justify-content: space-between;
+				
+				.action-button {
+					width: 45%;
+					height: 90rpx;
+					line-height: 90rpx;
+					background-color: #5199ff;
+					color: #fff;
+					font-size: 32rpx;
+					letter-spacing: 2rpx;
+					border-radius: 45rpx;
+					box-shadow: 0 6rpx 15rpx rgba(81, 153, 255, 0.3);
+				}
+				
+				.save-button {
+					background-color: #32CD32;
 				}
 			}
 		}
+	}
+	
+	.hidden-canvas {
+		position: absolute;
+		left: -9999px;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.hidden-link {
+		display: none;
 	}
 </style>

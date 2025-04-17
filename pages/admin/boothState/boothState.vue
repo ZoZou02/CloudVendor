@@ -39,7 +39,7 @@
 					position: { lat: 23.106154, lng: 113.281485 },
 				},
 			])
-			let token = '';
+			let token = uni.getStorageSync('admin_token');
 			const mapcenter = ref({ lat: 23.106154, lng: 113.281485 });
 			const geometries = ref([
 			]);
@@ -63,42 +63,23 @@
 			const hasBooth = ref(false);
 			//获取token
 			function getToken() {
-				uni.request({
-					url: 'http://localhost:8080/getToken',
-					method: 'POST',
-					header: {
-						'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-					},
-					data: {
-						id: 13232191043,
-					},
-					success: (res) => {
-						console.log(res.data);
-						if (res.data.code === 200) {
-							uni.setStorageSync("token", res.data.data);
-							token = res.data.data
-						} else {
-							uni.showToast({
-								icon: "error",
-								title: "获取token失败",
-							});
-						}
-					},
-					fail() {
-
-					},
-					complete() {
-
-					}
-				});
+				token = uni.getStorageSync('admin_token');
+				if (!token) {
+					uni.showToast({
+						icon: "error",
+						title: "未登录，请先登录",
+					});
+					// 跳转到登录页
+					uni.redirectTo({
+						url: '/pages/admin/login/login'
+					});
+				}
 			}
 			getToken()
 
 			//获取区域
 			function showArea() {
-				const getToken = uni.getStorageSync("token")
-				console.log("token：" + getToken)
-				token = getToken
+				token = uni.getStorageSync('admin_token');
 				uni.request({
 					url: 'http://localhost:8080/admin/showArea',
 					method: 'GET',

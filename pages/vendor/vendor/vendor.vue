@@ -32,29 +32,30 @@
 		</view>
 
 		<view class="boxList">
-			<view class="box" @click="toBooth">
+			<view class="box" @click="token ? toBooth() : toLogin()">
 				<image src="../../../static/myIcon/store.png" mode="aspectFit"></image>
 				<view class="funcTitle">我的摊位</view>
 			</view>
 
-			<view class="box" @click="toCert">
+			<view class="box" @click="token ? toCert() : toLogin()">
 				<image src="../../../static/myIcon/cert.png" mode="aspectFit"></image>
 				<view class="funcTitle">实名认证</view>
 			</view>
-			<view class="box" @click="toSetting">
+			<view class="box" @click="token ? toSetting() : toLogin()">
 				<image src="../../../static/myIcon/setting.png" mode="aspectFit"></image>
 				<view class="funcTitle">设置</view>
 			</view>
-			<view class="box" @click="toProfile">
+			<view class="box" @click="token ? toProfile() : toLogin()">
 				<image src="../../../static/myIcon/edit.png" mode="aspectFit"></image>
 				<view class="funcTitle">编辑资料</view>
 			</view>
-			<view class="box">
-				<image src="../../../static/myIcon/help.png" mode="aspectFit"></image>
-				<view class="funcTitle">帮助</view>
+			<view class="box" @click="token ? toBoothViolation() : toLogin()">
+				<image src="../../../static/myIcon/bill.png" mode="aspectFit"></image>
+				<view class="funcTitle">违规记录</view>
 			</view>
-			<view class="box">
-				<!-- <image src="../../../static/myIcon/cert.png" mode="aspectFit"></image> -->
+			<view class="box" @click="token ? toMessage() : toLogin()">
+				<image src="../../../static/myIcon/bell.png" mode="aspectFit"></image>
+				<view class="funcTitle">通知</view>
 			</view>
 		</view>
 
@@ -190,6 +191,16 @@
 				uni.navigateTo({
 					url: '/pages/vendor/editProfile/editProfile'
 				})
+			},
+			toMessage() {
+				uni.navigateTo({
+					url: '/pages/vendor/message/message'
+				})
+			},
+			toBoothViolation() {
+				uni.navigateTo({
+					url: '/pages/vendor/boothViolation/boothViolation'
+				})
 			}
 		}
 	}
@@ -225,8 +236,8 @@
 			bottom: 62px;
 			height: 120px;
 			background-color: white;
-			border-radius: 5%;
-			box-shadow: 0 1px 2px 0 #e4e7ef;
+			border-radius: 15px;
+			box-shadow: 0 2rpx 20rpx rgba(0, 0, 0, 0.08);	
 
 			.top {
 				height: 30%;

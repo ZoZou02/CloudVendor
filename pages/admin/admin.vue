@@ -2,7 +2,7 @@
 	<view class="admin-container">
 		<!-- 左侧侧边栏 -->
 		<view class="sidebar">
-			<view class="logo">管理后台</view>
+			<view class="logo">商贩管理后台</view>
 			<view v-for="(item, index) in menus" :key="index" class="menu-item"
 				:class="{ active: activeIndex === index }" @click="switchTab(item, index)">
 				{{ item.title }}
@@ -24,6 +24,12 @@
 	import Street from '@/pages/admin/street/street'
 	import VendorList from '@/pages/admin/vendorList/vendorList'
 	import InspectorList from '@/pages/admin/inspectorList/inspectorList'
+	import ApplyList from '@/pages/admin/applyList/applyList'
+	import FineList from '@/pages/admin/fineList/fineList'
+	import ViolationList from '@/pages/admin/violationList/violationList'
+	import BoothState from '@/pages/admin/boothState/boothState'
+	import AdminManage from '@/pages/admin/adminManage/adminManage'
+	import Message from '@/pages/admin/message/message'
 
 	export default {
 		data() {
@@ -43,13 +49,33 @@
 						component: 'Street'
 					},
 					{
-						title: '摊主管理',
+						title: '摊主列表',
 						component: 'VendorList'
 					},
 					{
-						title: '城管管理',
+						title: '城管列表',
 						component: 'InspectorList'
 					},
+					{
+						title: '摊位审核',
+						component: 'ApplyList'
+					},
+					{
+						title: '违规记录',
+						component: 'ViolationList'
+					},
+					// {
+					// 	title: '摊位状态',
+					// 	component: 'BoothState'
+					// },
+					{
+						title: '发送消息',
+						component: 'Message'
+					},
+					{
+						title: '管理员',
+						component: 'AdminManage'
+					}
 				]
 			}
 		},
@@ -58,12 +84,53 @@
 			Area,
 			Street,
 			VendorList,
-			InspectorList
+			InspectorList,
+			ApplyList,
+			FineList,
+			ViolationList,
+			BoothState,
+			AdminManage,
+			Message
 		},
 		methods: {
 			switchTab(item, index) {
 				this.activeIndex = index
-				this.currentComponent = item.component
+				// 修复：使用正确的方式引用组件
+				switch (item.component) {
+					case 'Overview':
+						this.currentComponent = Overview
+						break
+					case 'Area':
+						this.currentComponent = Area
+						break
+					case 'Street':
+						this.currentComponent = Street
+						break
+					case 'VendorList':
+						this.currentComponent = VendorList
+						break
+					case 'InspectorList':
+						this.currentComponent = InspectorList
+						break
+					case 'ApplyList':
+						this.currentComponent = ApplyList
+						break
+					case 'FineList':
+						this.currentComponent = FineList
+						break
+					case 'ViolationList':
+						this.currentComponent = ViolationList
+						break
+					case 'BoothState':
+						this.currentComponent = BoothState
+						break
+					case 'Message':
+						this.currentComponent = Message
+						break
+					case 'AdminManage':
+						this.currentComponent = AdminManage
+						break
+				}
 				// 修改导航栏标题
 				uni.setNavigationBarTitle({
 					title: item.title
@@ -71,6 +138,17 @@
 			}
 		},
 		onLoad() {
+			// 检查是否已登录
+			const adminInfo = uni.getStorageSync('adminInfo')
+			const adminToken = uni.getStorageSync('admin_token')
+			if (!adminInfo || !adminToken) {
+				// 未登录则跳转到登录页
+				uni.redirectTo({
+					url: '/pages/admin/login/login'
+				})
+				return
+			}
+			
 			// 初始化默认标题
 			uni.setNavigationBarTitle({
 				title: this.menus[0].title

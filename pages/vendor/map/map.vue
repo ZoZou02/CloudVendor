@@ -1,5 +1,5 @@
  <template>
- 	<view v-if="hasBooth===true && isOperate===false" class="content">
+ 	<view v-if="hasBooth===true && boothState === '休息'" class="content">
  		<tmap-map class="map" mapKey="MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW" :events="events" :center="center"
  			:control="control" :doubleClickZoom="false">
  			<tmap-multi-polygon :id="id" :styles="styles" :geometries="geometries" />
@@ -14,7 +14,7 @@
  		</view>
  	</view>
 
- 	<view v-else-if="hasBooth===true && isOperate===true" class="content">
+ 	<view v-else-if="hasBooth===true && boothState === '营业中'" class="content">
  		<tmap-map class="map" mapKey="MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW" :center="center" :control="control"
  			:doubleClickZoom="false">
  			<tmap-multi-polygon :id="id" :styles="styles" :geometries="geometries" />
@@ -28,6 +28,30 @@
  		</view>
  	</view>
 	
+	<view v-else-if="hasBooth===true && boothState === '审核'" class="content">
+		<tmap-map class="map" mapKey="MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW" :center="center" :control="control"
+			:doubleClickZoom="false">
+			<tmap-multi-polygon :id="id" :styles="styles" :geometries="geometries" />
+		</tmap-map>
+		<view class="toolControl">
+			<view class="toolItem" id="reload" @click.stop="reload"></view>
+		</view>
+		<view class="review-tip">摊位信息正在审核中，请耐心等待...</view>
+		<view class="review-btn" @click.stop="toBooth()">查看详情</view>
+	</view>
+	
+	<view v-else-if="hasBooth===true && boothState === '停业'" class="content">
+		<tmap-map class="map" mapKey="MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW" :center="center" :control="control"
+			:doubleClickZoom="false">
+			<tmap-multi-polygon :id="id" :styles="styles" :geometries="geometries" />
+		</tmap-map>
+		<view class="toolControl">
+			<view class="toolItem" id="reload" @click.stop="reload"></view>
+		</view>
+		<view class="stop-tip">您的摊位已被停业</view>
+		<view class="review-btn" @click.stop="toBooth()">查看详情</view>
+	</view>
+ 	
  	<view v-else class="content">
  		<tmap-map class="map" mapKey="MQLBZ-BI73U-BG3VJ-GKB55-SSEH6-NPBPW" :center="center" :control="control"
  			:doubleClickZoom="false">
@@ -36,8 +60,8 @@
  		<view class="toolControl">
  			<view class="toolItem" id="reload" @click.stop="reload"></view>
  		</view>
- 		<view class="closed" @click.stop="toBooth()">
- 			申请摊位
+ 		<view class="closed" @click.stop="token ? toBooth() : toLogin()">
+ 			{{token ? '申请摊位' : '登录'}}
  		</view>
  	</view>
 	
@@ -74,13 +98,14 @@
 					position: { lat: 23.106154, lng: 113.281485 },
 				},
 			])
-			let token = '';
+			const token = uni.getStorageSync("token")
+
 			const center = ref({ lat: 23.106154, lng: 113.281485 });
 			const geometries = ref([
 			]);
-			const isOperate = ref(false)
 			const inArea = ref(false)
 			const inAreaId = ref()
+			const boothState = ref('')
 
 			// const markerPoint = ref({ lat: 23.106154, lng: 113.281485 });
 			//初始化
@@ -124,9 +149,8 @@
 			};
 			//获取区域
 			function showArea() {
-				const getToken = uni.getStorageSync("token")
-				console.log("token：" + getToken)
-				token = getToken
+				const token = uni.getStorageSync("token")
+				console.log("token：" + token)
 				uni.request({
 					url: `${uni.$baseUrl}/admin/showArea`,
 					method: 'GET',
@@ -181,7 +205,7 @@
 								getBoothState();
 								// getLoction();
 								getBoothLocation();
-								console.log("摊位状态",isOperate.value)
+								console.log("摊位状态",boothState.value)
 							}
 							
 							getLocationList();
@@ -211,14 +235,9 @@
 						'Authorization': token
 					},
 					success: (res) => {
-						if (res.data.data.boothState === "营业中") {
-							isOperate.value = true
-							//营业中获取摊位定位
-							// getBoothLocation()
-						}
-
-						console.log(res.data)
-
+						// 获取摊位状态并设置
+						boothState.value = res.data.data.boothState
+						console.log("摊位状态:", boothState.value)
 					}
 				})
 			};
@@ -246,7 +265,7 @@
 						console.log('pt', pt)
 						
 						checkArea(pt)
-						console.log("center", markerGeometries.value[0])
+						console.log("中心点center", center)
 					}
 
 				})
@@ -345,13 +364,17 @@
 				getBoothInfo();
 				getBoothList();
 				console.log("hasBooth.value",hasBooth.value)
+				console.log("中心点", center.value);
+
 
 			});
 
 			return {
+				token,
 				//摊位信息
 				boothInfo,
 				hasBooth,
+				boothState,
 				//地图事件
 				events: {
 					click: mark,
@@ -376,9 +399,7 @@
 				control: {//地图控件
 					zoom: {}
 				},
-				isOperate,
 				inArea,
-				inAreaId,
 
 				id: 'polygon-layer',
 				styles: {
@@ -430,7 +451,7 @@
 						data: locationData,
 						success: () => {
 							center.value=markerGeometries.value[0].position
-							isOperate.value=true
+							boothState.value="营业中"
 							uni.showToast({
 								icon: 'success',
 								title: '成功出摊'
@@ -455,7 +476,7 @@
 						data: {},
 						success: () => {
 							// location.reload()
-							isOperate.value=false
+							boothState.value="休息"
 							uni.showToast({
 								icon: 'success',
 								title: '已经休息'
@@ -473,6 +494,14 @@
 				toBooth() {
 					uni.navigateTo({
 						url: '/pages/vendor/booth/booth',
+						fail(e) {
+							console.log("错误", e)
+						}
+					})
+				},
+				toLogin() {
+					uni.navigateTo({
+						url: '/pages/vendor/login/login',
 						fail(e) {
 							console.log("错误", e)
 						}
@@ -688,5 +717,57 @@
 
  	#reload {
  		background-image: url('@/static/map/reload.png');
+ 	}
+
+ 	.review-tip {
+ 		position: absolute;
+ 		text-align: center;
+ 		padding: 10px;
+ 		color: #ff9900;
+ 		font-size: 0.9em;
+ 		background-color: #f8f8f8;
+ 		border-radius: 8px;
+ 		width: 80%;
+ 		z-index: 2000;
+ 		left: 50%;
+ 		top: 50%;
+ 		transform: translate(-50%, -50%);
+ 		box-shadow: 0 1px 2px 0 #e4e7ef;
+ 	}
+ 	
+ 	.review-btn {
+ 		position: absolute;
+ 		z-index: 2000;
+ 		text-align: center;
+ 		color: #FFF;
+ 		display: flex;
+ 		align-items: center;
+ 		justify-content: center;
+ 		bottom: 30px;
+ 		left: 50%;
+ 		transform: translateX(-50%);
+ 		width: 100px;
+ 		height: 30px;
+ 		border-radius: 30px;
+ 		padding: 4px;
+ 		box-shadow: 0 3px 0px 0 #ff9900;
+ 		background-color: #ffaa00;
+ 		border: 1px solid #ffc266;
+ 	}
+
+ 	.stop-tip {
+ 		position: absolute;
+ 		text-align: center;
+ 		padding: 10px;
+ 		color: #ff3333;
+ 		font-size: 0.9em;
+ 		background-color: #f8f8f8;
+ 		border-radius: 8px;
+ 		width: 80%;
+ 		z-index: 2000;
+ 		left: 50%;
+ 		top: 50%;
+ 		transform: translate(-50%, -50%);
+ 		box-shadow: 0 1px 2px 0 #e4e7ef;
  	}
  </style>

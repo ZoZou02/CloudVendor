@@ -89,7 +89,7 @@
 				if(this.verifyData()){
 					console.log('摊位信息', this.boothInfo)
 					uni.request({
-						url: 'http://localhost:8080/booth/addBooth',
+						url: `${uni.$baseUrl}/booth/addBooth`,
 						method: 'GET',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -111,7 +111,7 @@
 							//创建了摊位信息后再上传摊位照片
 							this.uploadImage()
 							//返回
-							uni.navigateBack()
+							this.toIndex()
 						},
 						fail: () => {},
 						complete: () => {}
@@ -144,12 +144,10 @@
 					console.log("营业开始时间必须早于营业结束时间");
 					uni.showToast({
 						icon: 'error',
-						title: '营业开始时间必须早于营业结束时间'
+						title: '时间有误！'
 					})
 					return false;
 				}
-
-				// 其他验证逻辑...
 
 				// 数据验证通过
 				return true;
@@ -173,7 +171,7 @@
 			},
 			uploadImage(){
 				uni.uploadFile({
-					url: 'http://localhost:8080/booth/uploadBoothPic', // 上传接口地址
+					url: 'http://localhost:8080/booth/uploadBoothPic', // 上传
 					filePath: this.boothSamplePic,
 					header: {
 						'Authorization': this.token,
@@ -187,10 +185,23 @@
 					}
 				})
 				
-			}
-
-
-
+			},
+			toBooth() {
+				uni.navigateTo({
+					url: '/pages/vendor/booth/booth',
+					fail(e) {
+						console.log("错误", e)
+					}
+				})
+			},
+			toIndex() {
+				uni.navigateTo({
+					url: '/pages/vendor/index/index',
+					fail(e) {
+						console.log("错误", e)
+					}
+				})
+			},
 		}
 	}
 </script>

@@ -1,65 +1,142 @@
 <template>
-	<view class="changeInfo">
-		<view class="nav-box">
-			<view class="title">编辑个人资料</view>
+	<view class="page">
+		<!-- 顶部背景 -->
+		<view class="top">
+			<view class="background"></view>
 		</view>
-		<view class="box">
-			<view class="img-box">
-				<image class="img" :src="vendorPic" @click="chooseImage" mode="widthFix"></image>
-				<view class="text">点击更换头像</view>
-			</view>
-		</view>
-
-
-		<view class="info-box">
-
-			<view class="text-box">
-				<view class="left">用户ID</view>
-				<view type="text" class="right">{{userInfo.vendorId}}</view>
-			</view>
-
-			<view class="text-box">
-				<view class="left">姓名</view>
-				<view type="text" class="right">{{userInfo.vendorName}}</view>
-			</view>
-
-			<!-- 			<view class="uni-list">
-				<view class="text-box">
-					<view class="left">性别</view>
-					<view class="uni-list-cell-db">
-						<picker @change="bindPickerChange" :value="sexIndex" :range="array">
-							<view class="right">{{array[sexIndex]}}</view>
-						</picker>
+		
+		<!-- 个人资料卡片 -->
+		<view class="profile-card">
+			<view class="card">
+				<!-- 头像部分 -->
+				<view class="avatar-section">
+					<view class="avatar-container" @click="chooseImage">
+						<image class="avatar-image" :src="vendorPic" mode="aspectFill"></image>
+						<view class="avatar-edit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+								<path fill="#ffffff" d="M5 16.577V19h2.423l7.125-7.125l-2.423-2.423L5 16.577zm13.202-7.355l-1.425-1.424a1.003 1.003 0 0 0-1.418.001l-1.13 1.13l2.423 2.423l1.131-1.132a1 1 0 0 0-.001-1.417l.42-.581z"/>
+							</svg>
+						</view>
 					</view>
 				</view>
-			</view> -->
-			<view class="uni-list">
-				<view class="text-box">
-					<view class="left">性别</view>
-					<radio-group @change="sexChange">
-						<label class="sexLabel" v-for="(item, index) in array" :key="item.value">
-							<radio :value="item.value" :checked="index === sexIndex" />
-							{{item.name}}
-						</label>
-					</radio-group>
+				
+				<!-- 表单内容 -->
+				<view class="form-section">
+					<!-- 表单项分组 -->
+					<view class="form-group">
+						<view class="form-header">
+							<view class="header-line"></view>
+							<view class="header-text">基本信息</view>
+							<view class="header-line"></view>
+						</view>
+						
+						<!-- 用户ID -->
+						<view class="form-item">
+							<view class="form-item-content">
+								<view class="form-item-left">
+									<view class="form-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+											<path fill="#5199ff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.95 7.95 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/>
+										</svg>
+									</view>
+								</view>
+								<view class="form-item-center">
+									<view class="form-label">用户ID</view>
+									<view class="form-value">{{userInfo.vendorId}}</view>
+								</view>
+							</view>
+						</view>
+						
+						<!-- 姓名 -->
+						<view class="form-item">
+							<view class="form-item-content">
+								<view class="form-item-left">
+									<view class="form-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+											<path fill="#5199ff" d="M16 17v2H2v-2s0-4 7-4s7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 0 0-1.93.59a5 5 0 0 1 0 5.82A3.39 3.39 0 0 0 15 11a3.5 3.5 0 0 0 0-7Z"/>
+										</svg>
+									</view>
+								</view>
+								<view class="form-item-center">
+									<view class="form-label">姓名</view>
+									<view class="form-value">{{userInfo.vendorName}}</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					
+					<!-- 可编辑信息分组 -->
+					<view class="form-group">
+						<view class="form-header">
+							<view class="header-line"></view>
+							<view class="header-text">其他信息</view>
+							<view class="header-line"></view>
+						</view>
+						
+						<!-- 性别 -->
+						<view class="form-item">
+							<view class="form-item-content">
+								<view class="form-item-left">
+									<view class="form-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+											<path fill="#5199ff" d="M17.5 9.5C17.5 6.46 15.04 4 12 4S6.5 6.46 6.5 9.5a5.495 5.495 0 0 0 4.5 5.39v2.61h-2v2h2v2h2v-2h2v-2h-2v-2.61c2.5-.43 4.5-2.56 4.5-5.39zm-9 0C8.5 7.57 10.07 6 12 6s3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5z"/>
+										</svg>
+									</view>
+								</view>
+								<view class="form-item-center">
+									<view class="form-label">性别</view>
+									<view class="form-radio-group">
+										<radio-group @change="sexChange" class="radio-group">
+											<label class="radio-label" v-for="(item, index) in array" :key="item.value">
+												<radio :value="item.value" :checked="index === sexIndex" color="#5199ff" />
+												<text class="radio-text">{{item.name}}</text>
+											</label>
+										</radio-group>
+									</view>
+								</view>
+							</view>
+						</view>
+						
+						<!-- 手机 -->
+						<view class="form-item">
+							<view class="form-item-content">
+								<view class="form-item-left">
+									<view class="form-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+											<path fill="#5199ff" d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H7V4h10v16zm-7-3h4v-2h-4v2z"/>
+										</svg>
+									</view>
+								</view>
+								<view class="form-item-center">
+									<view class="form-label">手机</view>
+									<input type="text" class="form-input" v-model="userInfo.phone" placeholder="请输入手机号码" />
+								</view>
+							</view>
+						</view>
+						
+						<!-- 联系地址 -->
+						<view class="form-item">
+							<view class="form-item-content">
+								<view class="form-item-left">
+									<view class="form-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+											<path fill="#5199ff" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5a2.5 2.5 0 0 1 0 5z"/>
+										</svg>
+									</view>
+								</view>
+								<view class="form-item-center">
+									<view class="form-label">联系地址</view>
+									<input type="text" class="form-input" v-model="userInfo.address" placeholder="请输入联系地址" />
+								</view>
+							</view>
+						</view>
+					</view>
 				</view>
-			</view>
-
-			<view class="text-box">
-				<view class="left">手机</view>
-				<view class="iconfont iconchangyongicon- icon-box"></view>
-				<input type="text" class="rightInput" v-model="userInfo.phone" />
-			</view>
-
-			<view class="text-box">
-				<view class="left">联系地址</view>
-				<view class="iconfont iconchangyongicon- icon-box"></view>
-				<input type="text" class="rightInput" v-model="userInfo.address" />
-			</view>
-		</view>
-		<view class="quit flex-center">
-			<view class="btn flex-center" @click="save">
-				点击保存
+				
+				<!-- 保存按钮 -->
+				<view class="button-section">
+					<button class="save-button" @click="save">保存修改</button>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -105,7 +182,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8080/vendor/getVendorInfo',
+					url: `${uni.$baseUrl}/vendor/getVendorInfo`,
 					method: 'GET',
 					data: {},
 					header: {
@@ -150,7 +227,7 @@
 				if(flag){
 					this.uploadImage()
 					uni.request({
-						url: 'http://localhost:8080/vendor/editVendorInfo',
+						url: `${uni.$baseUrl}/vendor/editVendorInfo`,
 						method: 'GET',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -166,15 +243,25 @@
 						header: {
 							'Authorization': this.token
 						},
-						success: () => {},
-						fail: () => {},
-						complete: () => {}
+						success: (res) => {
+							uni.showToast({
+								title: '保存成功',
+								icon: 'success'
+							});
+							setTimeout(() => {
+								uni.navigateBack({
+									delta: 1
+								});
+							}, 1500);
+						},
+						fail: () => {
+							uni.showToast({
+								title: '保存失败',
+								icon: 'error'
+							});
+						}
 					})
 				}
-			},
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.detail.value)
-				this.sexIndex = e.detail.value
 			},
 			sexChange(e) {
 				console.log('性别', e)
@@ -182,7 +269,7 @@
 			},
 			uploadImage() {
 				uni.uploadFile({
-					url: 'http://localhost:8080/vendor/upload', // 上传接口地址
+					url: `${uni.$baseUrl}/vendor/upload`, // 上传接口地址
 					filePath: this.vendorPic,
 					header: {
 						'Authorization': this.token,
@@ -190,9 +277,6 @@
 					name: 'avatar',
 					success: (res) => {
 						console.log('上传成功:', res);
-						uni.navigateBack({
-							delta:1
-						})
 					},
 					fail: (err) => {
 						console.log('上传失败:', err);
@@ -231,145 +315,194 @@
 				}
 				return flag
 			}
-			
-			
-		},
-
+		}
 	}
 </script>
 
-<style>
-	.changeInfo {
-		width: 100%;
-		height: 100%;
-		background: #FFFFFF;
+<style lang="scss" scoped>
+	.page {
+		min-height: 100vh;
+		background-color: #f7f7f7;
 	}
-
-	.nav-box {
-		height: 50px;
+	
+	.top {
+		height: 250rpx;
 		position: relative;
-		margin: 0 auto;
-		padding-top: 30px;
-	}
-
-	.title {
-		text-align: center;
-		color: #FFFFFF;
-		font-size: 18px;
-	}
-
-	.icon-nav {
-		position: absolute;
-		top: 30px;
-		left: 10px;
-		color: #FFFFFF;
-	}
-
-	.box {
-		width: 100%;
-		height: 150px;
-		margin: 0 auto;
-		border-top: 1px solid #333333;
-		border-bottom: 1px solid #333333;
-	}
-
-	.img-box {
-		text-align: center;
-	}
-
-	.img {
-		margin-top: 20px;
-		width: 20%;
-		/* height: 70px; */
-		border-radius: 50%;
-	}
-
-	.userImage {
-		bottom: 24%;
-		left: 10%;
-		width: 130px;
-		height: 130px;
-		overflow: hidden;
-		border-radius: 50%;
-		border: 2px solid white;
-
-		image {
+		
+		.background {
+			background-color: #5199ff;
+			border-bottom-left-radius: 22px;
+			border-bottom-right-radius: 22px;
+			position: absolute;
+			height: 180rpx;
 			width: 100%;
 		}
 	}
-
-	.text {
-		margin-top: 13px;
-		color: #000000;
-		font-size: 13px;
-	}
-
-	.info-box {
-		padding: 0 10px;
-	}
-
-	.text-box {
-		width: 100%;
-		height: 52px;
-		line-height: 52px;
-	}
-
-	.left {
-		float: left;
-		font-size: 15px;
-		color: #000000;
-		margin-left: 10px;
-	}
-
-	.right {
-		width: 200px;
-		height: 30px;
-		margin-left: 100px;
-		/* margin-top: 10px; */
-		font-size: 15px;
-		margin-right: 10px;
-		color: #000000;
-	}
-
-	.rightInput {
-		width: 200px;
-		height: 50px;
-		margin-left: 100px;
-		/* margin-top: 10px; */
-		font-size: 15px;
-		margin-right: 10px;
-		color: #000000;
-	}
-
-	.icon-box {
-		float: right;
-		font-size: 15px;
-		color: #cecece;
-		width: 10px;
-	}
-
-	.quit {
-		height: 100rpx;
-		margin-top: 50px;
-
-		.btn {
-			background-color: #4f99ff;
-			border-radius: 30px;
-			width: 80%;
-			color: white;
-			font-size: 1.2em;
-			height: 100%;
+	
+	.profile-card {
+		padding: 0 30rpx;
+		
+		.card {
+			position: relative;
+			bottom: 62px;
+			background-color: #ffffff;
+			border-radius: 15px;
+			box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+			padding: 30rpx;
+			
+			.avatar-section {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				margin-bottom: 40rpx;
+				
+				.avatar-container {
+					position: relative;
+					width: 160rpx;
+					height: 160rpx;
+					border-radius: 50%;
+					overflow: visible;
+					border: 4rpx solid #ffffff;
+					box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+					
+					.avatar-image {
+						width: 100%;
+						height: 100%;
+						border-radius: 50%;
+						overflow: hidden;
+					}
+					
+					.avatar-edit-icon {
+						position: absolute;
+						bottom: -5rpx;
+						right: -5rpx;
+						background-color: #5199ff;
+						width: 50rpx;
+						height: 50rpx;
+						border-radius: 50%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+						z-index: 1;
+					}
+				}
+				
+				.avatar-hint {
+					color: #999;
+					font-size: 24rpx;
+					margin-top: 15rpx;
+				}
+			}
+			
+			.form-section {
+				.form-group {
+					margin-bottom: 30rpx;
+					
+					.form-header {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						margin-bottom: 20rpx;
+						
+						.header-line {
+							flex: 1;
+							height: 2rpx;
+							background-color: #eeeeee;
+						}
+						
+						.header-text {
+							font-size: 28rpx;
+							color: #666;
+							padding: 0 20rpx;
+						}
+					}
+					
+					.form-item {
+						padding: 24rpx 0;
+						border-bottom: 1px solid #f5f5f5;
+						
+						&:last-child {
+							border-bottom: none;
+						}
+						
+						.form-item-content {
+							display: flex;
+							
+							.form-item-left {
+								width: 10%;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								
+								.form-icon {
+									display: flex;
+									align-items: center;
+									justify-content: center;
+								}
+							}
+							
+							.form-item-center {
+								width: 90%;
+								padding-left: 20rpx;
+								
+								.form-label {
+									font-size: 26rpx;
+									color: #999;
+									margin-bottom: 10rpx;
+								}
+								
+								.form-value {
+									font-size: 32rpx;
+									color: #333;
+									font-weight: 500;
+								}
+								
+								.form-input {
+									font-size: 32rpx;
+									color: #333;
+									height: 70rpx;
+									line-height: 70rpx;
+								}
+								
+								.form-radio-group {
+									.radio-group {
+										display: flex;
+										flex-wrap: wrap;
+										
+										.radio-label {
+											margin-right: 50rpx;
+											display: flex;
+											align-items: center;
+											
+											.radio-text {
+												font-size: 30rpx;
+												color: #333;
+												margin-left: 8rpx;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			.button-section {
+				margin-top: 40rpx;
+				
+				.save-button {
+					background-color: #5199ff;
+					color: #fff;
+					border-radius: 40rpx;
+					height: 90rpx;
+					line-height: 90rpx;
+					font-size: 32rpx;
+					letter-spacing: 2rpx;
+					box-shadow: 0 6rpx 15rpx rgba(81, 153, 255, 0.3);
+				}
+			}
 		}
-
-	}
-
-	.flex-center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.sexLabel {
-		margin-left: 20px;
 	}
 </style>

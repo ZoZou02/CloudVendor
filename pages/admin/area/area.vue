@@ -48,7 +48,7 @@
 		setup() {
 			const selectd = ref(0);
 			// let sid : any;
-			const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II';
+			const token = uni.getStorageSync('admin_token');
 			const editor = ref();
 			const mapcenter = ref({ lat: 23.106154, lng: 113.281485 });
 			const geometries = ref([]);               //摊位区域范围
@@ -170,33 +170,6 @@
 							streetGeometries.value.push(areaData);
 						});
 						console.log('street', streetGeometries.value)
-						//标签
-						// 			res.data.data.forEach((item : { streetId : any; streetArea : { paths : any[]; }; streetName : any; }) => {
-
-						// 				const polygonPt = item.streetArea.paths.map((path : { lat : any; lng : any; }) => [path.lat, path.lng]);
-						// 				// 添加首个坐标以闭合环
-						// 				polygonPt.push(polygonPt[0]);
-						// 				const poly = polygon([polygonPt]);
-
-						// 				// let centr = centroid(poly);
-						// 				let centr = center(poly);
-						// 				// console.log('centeroid',centr.geometry.coordinates);
-						// 				// console.log('paths',item.streetArea.paths[0]);
-						// 				let centrPath = { 'lat': centr.geometry.coordinates[0], 'lng': centr.geometry.coordinates[1] };
-
-
-						// 				let labelData = {
-						// 					id: item.streetId,
-						// 					styleId: 'label',
-						// 					position: centrPath,
-						// 					content: item.streetName,
-						// 					properties: {
-						// 						title: 'label',
-						// 					},
-						// 				};
-						// 				// console.log("读取区域", labelData.properties);
-						// 				Labelgeometries.value.push(labelData);
-						// 			});
 					}
 				})
 			};

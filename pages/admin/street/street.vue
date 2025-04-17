@@ -46,7 +46,7 @@
 
 		setup() {
 			const selectd = ref(0);
-			const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMjMyMTkxMDQzIiwiZXhwIjoxNzQxOTIwOTk2fQ.I5GXHL7mIYR1X3LBDdIPwIYzbDJ-TOqIeCU9N6MA5II';
+			const token = uni.getStorageSync('admin_token');
 			const editor = ref();
 			const mapcenter = ref({ lat: 23.106154, lng: 113.281485 });
 			const geometries = ref([

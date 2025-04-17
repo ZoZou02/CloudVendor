@@ -15,7 +15,9 @@ currentEnv = process.env.NODE_ENV || 'development'
 // #endif
 
 // export const BASE_URL = ENV_CONFIG[currentEnv].baseUrl
-export const BASE_URL = 'https://vendorapi.frpee.cn'
+// export const BASE_URL = 'https://vendorapi.frpee.cn'
+export const BASE_URL = 'http://localhost:8080'
+
 
 // API路径配置
 export const API = {
